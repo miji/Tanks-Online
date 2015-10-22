@@ -11,6 +11,7 @@ public class Awareness : MonoBehaviour {
 	public bool WhatAbilities;
 	public bool WhereLocation;
 	public bool WherePosition;
+	public bool WhereGaze; // requires WhereLocation
 
 	[Header("Past")]
 	public bool WhatTaskHistory; //requires WhatTask

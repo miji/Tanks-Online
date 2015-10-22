@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: aade12a009429457aa776103c2ee0b7f
-timeCreated: 1444722940
+timeCreated: 1445513249
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - playerArrow: {fileID: 11400004, guid: bf89ccaadb7636046819d4c10a502bf2, type: 2}
+  - enemyArrow: {fileID: 11400004, guid: 8f94124a2903d744680c1345662c0bfc, type: 2}
+  - playerCircle: {fileID: 11400004, guid: 647b3bda0b67b454ca4016159718bf89, type: 2}
+  - enemyCircle: {fileID: 11400004, guid: 947b3208335204cf3b2776528a75cd5e, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

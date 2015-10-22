@@ -6,7 +6,8 @@ public class MiniMapManager : MonoBehaviour {
 
 	public MObject playerArrow;
 	public MObject enemyArrow;
-
+	public MObject playerCircle;
+	public MObject enemyCircle;
 
 	public void UpdateMinimap(){
 		if (FindObjectOfType<Awareness> ().WhereLocation) {
@@ -18,14 +19,20 @@ public class MiniMapManager : MonoBehaviour {
 						if (tm.m_Instance.GetComponent<MActor> () == null) {
 							//Add player arrow
 							MActor ma = tm.m_Instance.AddComponent<MActor> ();
-							ma.objPrefab = playerArrow;
+							if(FindObjectOfType<Awareness> ().WhereGaze)
+								ma.objPrefab = playerArrow;
+							else
+								ma.objPrefab = playerCircle;
 						}
 					} else {
 						// Is not local
 						if (tm.m_Instance.GetComponent<MActor> () == null) {
 							// Add enemy arrow
 							MActor ma = tm.m_Instance.AddComponent<MActor> ();
-							ma.objPrefab = enemyArrow;
+							if(FindObjectOfType<Awareness> ().WhereGaze)
+								ma.objPrefab = enemyArrow;
+							else
+								ma.objPrefab = enemyCircle;
 						}
 					}
 				} else {
