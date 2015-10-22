@@ -45,6 +45,8 @@ public class GameManager : NetworkBehaviour
     {
         s_Instance = this;
 
+		FindObjectOfType<Awareness> ().ApplyAwarenessElements ();
+
     }
 
     [ServerCallback]
@@ -57,6 +59,8 @@ public class GameManager : NetworkBehaviour
         // Once the tanks have been created and the camera is using them as targets, start the game.
         StartCoroutine(GameLoop());
     }
+
+
 
     /// <summary>
     /// Add a tank from the lobby hook

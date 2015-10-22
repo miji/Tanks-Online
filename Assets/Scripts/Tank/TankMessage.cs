@@ -21,14 +21,18 @@ public class TankMessage : NetworkBehaviour
 	[ClientRpc]
 	public void RpcShowMessage (string message)
 	{
-		string current = GameObject.Find ("MessagesText").GetComponent<Text> ().text;
-
 		string messageToShow="";
 
+		string current = GameObject.Find ("MessagesText").GetComponent<Text> ().text;
+
 		if (FindObjectOfType<Awareness> ().WhatTask) {
-			messageToShow = message;
+			if (FindObjectOfType<Awareness> ().WhenEventHistory)
+				messageToShow = System.DateTime.Now.ToShortTimeString()+ " ";
+
+			messageToShow += message;
+
 			if (FindObjectOfType<Awareness> ().WhatTaskHistory){
-				messageToShow = message + "\n" + current;
+				messageToShow = messageToShow + "\n" + current;
 			}
 		}
 		GameObject.Find ("MessagesText").GetComponent<Text> ().text = messageToShow;

@@ -63,10 +63,10 @@ public class TankHealth : NetworkBehaviour
 	private void SetHealthUI ()
 	{
 		// Set the slider's value appropriately.
-		if (FindObjectOfType<Awareness> ().WhatStatus)
+		//if (FindObjectOfType<Awareness> ().WhatStatus)
 			m_Slider.value = m_CurrentHealth;
-		else
-			m_Slider.gameObject.SetActive (false);
+		//else
+		//	m_Slider.gameObject.SetActive (false);
 
 		// Interpolate the color of the bar between the choosen colours based on the current percentage of the starting health.
 		m_FillImage.color = Color.Lerp (m_ZeroHealthColor, m_FullHealthColor, m_CurrentHealth / m_StartingHealth);
@@ -125,8 +125,16 @@ public class TankHealth : NetworkBehaviour
 		m_Collider.enabled = active;
 
 		m_TankRenderers.SetActive (active);
-		m_HealthCanvas.SetActive (active);
-		m_AimCanvas.SetActive (active);
+		if (FindObjectOfType<Awareness> ().WhatStatus)
+			m_HealthCanvas.SetActive (active);
+		else
+			m_HealthCanvas.SetActive (false);
+
+		// Where - Reach
+		if (FindObjectOfType<Awareness> ().WhereReach)
+			m_AimCanvas.SetActive (active);
+		else
+			m_AimCanvas.SetActive (false);
 		m_LeftDustTrail.SetActive (active);
 		m_RightDustTrail.SetActive (active);
 

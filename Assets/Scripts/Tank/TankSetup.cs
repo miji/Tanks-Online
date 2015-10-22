@@ -69,6 +69,8 @@ public class TankSetup : NetworkBehaviour
 		m_Crown.SetActive (false);
 
 
+
+
 	}
 
 	[ClientCallback]
