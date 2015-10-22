@@ -1,0 +1,1 @@
+﻿public enum MOrientation { XZ, YZ }

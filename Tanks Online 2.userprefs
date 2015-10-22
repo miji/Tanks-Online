@@ -1,0 +1,20 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Items/PickUpItem.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Items/PickUpItem.cs" Line="29" Column="91" />
+      <File FileName="Assets/Scripts/Tank/TankHealth.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Tank/TankShooting.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Items/ItemManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Managers/GameManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Camera/CameraControl.cs" Line="68" Column="1" />
+      <File FileName="Assets/Editor/Minimap/Util/MCreateMinimap.cs" Line="226" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/miji/Desktop/Tanks Online 2/Assets/Scripts/Managers/GameManager.cs" line="213" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
