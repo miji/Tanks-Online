@@ -6,7 +6,7 @@ public class ItemManager : NetworkBehaviour {
 
 	public Transform[] spawnPoints;
 	public GameObject[] itemPrefabs;
-	public int timeBetwenItems=30;
+	int timeBetwenItems;
 	public bool spawning=false;
 	GameObject clone;
 	Coroutine coroutine;
@@ -33,7 +33,7 @@ public class ItemManager : NetworkBehaviour {
 	}
 
 	[Server]
-	public void Enable(){
+	public void Enable(int timeBetweenItems){
 
 		// debug 
 
@@ -41,7 +41,7 @@ public class ItemManager : NetworkBehaviour {
 		//NetworkServer.Spawn (clone);
 
 		// end debug
-
+		this.timeBetwenItems = timeBetweenItems;
 		spawning = true;
 		coroutine=StartCoroutine (SpawnItems ());
 	}

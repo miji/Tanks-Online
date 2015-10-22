@@ -226,7 +226,7 @@ namespace UnityStandardAssets.Network
         [ClientRpc]
         public void RpcUpdateCountdown(int countdown)
         {
-            LobbyManager.s_Singleton.infoPanel.Display("Match Starting in " + countdown, "", null, false);
+			LobbyManager.s_Singleton.infoPanel.Display("Match Starting in " + countdown, "", null, false);
 
             if (countdown == 0)
                 LobbyManager.s_Singleton.infoPanel.gameObject.SetActive(false);
