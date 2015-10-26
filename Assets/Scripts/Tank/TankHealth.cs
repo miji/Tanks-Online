@@ -52,7 +52,10 @@ public class TankHealth : NetworkBehaviour
 			return;
 
 		// Reduce current health by the amount of damage done.
-		m_CurrentHealth -= amount;
+
+		// Avoid suicide - My code
+		if (!attacker.Equals (m_Setup.m_PlayerName))
+			m_CurrentHealth -= amount;
 
 		// If the current health is at or below zero and it has not yet been registered, call OnZeroHealth.
 		if (m_CurrentHealth <= 0f && !m_ZeroHealthHappened) {
@@ -64,7 +67,7 @@ public class TankHealth : NetworkBehaviour
 	{
 		// Set the slider's value appropriately.
 		//if (FindObjectOfType<Awareness> ().WhatStatus)
-			m_Slider.value = m_CurrentHealth;
+		m_Slider.value = m_CurrentHealth;
 		//else
 		//	m_Slider.gameObject.SetActive (false);
 
