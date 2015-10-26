@@ -134,7 +134,7 @@ public class TankShooting : NetworkBehaviour
 		if (longShot)
 			 velocity = rigidbodyVelocity + launchForce * forward;
 		else
-			 velocity = rigidbodyVelocity + launchForce * forward / 2;
+			 velocity = rigidbodyVelocity + launchForce * forward / 1.5f;
 
         // Set the shell's velocity to this velocity.
         shellInstance.velocity = velocity;

@@ -67,7 +67,7 @@ public class TankItem : NetworkBehaviour {
 			StopRed();
 		}
 		CmdSetRed (true);
-		movement.m_Speed *= 2;
+		movement.m_Speed *= 1.5f;
 		yield return new WaitForSeconds (ItemDuration);
 		messages.CmdSendMessage (setup.m_PlayerName + " finished red item");
 		StopRed ();

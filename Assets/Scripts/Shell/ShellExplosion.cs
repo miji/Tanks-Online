@@ -73,12 +73,12 @@ public class ShellExplosion : NetworkBehaviour
             float damage = relativeDistance * m_MaxDamage;
 
 			// if blue
-			/*if(strongShot){
-				damage*=2;
-				Debug.Log("strong");
+			if(strongShot){
+				damage*=1.5f;
+				//Debug.Log("strong");
 			}else{
-				Debug.Log("normal");
-			}*/
+				//Debug.Log("normal");
+			}
 
             // Make sure that the minimum damage is always 0.
             damage = Mathf.Max(0f, damage);

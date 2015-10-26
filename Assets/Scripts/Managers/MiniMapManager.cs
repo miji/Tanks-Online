@@ -28,9 +28,8 @@ public class MiniMapManager : MonoBehaviour
 								ma.objPrefab = playerCircle;
 
 							//color
-							if (FindObjectOfType<Awareness> ().WhoIdentity)
-								ma.objPrefab.GetComponent<Image> ().color = tm.m_Setup.m_Color;
-
+							//if (FindObjectOfType<Awareness> ().WhoIdentity)
+								//ma.objPrefab.GetComponent<Image> ().color = tm.m_Setup.m_Color;
 						}
 					} else {
 						// Is not local
@@ -43,8 +42,8 @@ public class MiniMapManager : MonoBehaviour
 								ma.objPrefab = enemyCircle;
 
 							//color
-							if (FindObjectOfType<Awareness> ().WhoIdentity)
-								ma.objPrefab.GetComponent<Image> ().color = tm.m_Setup.m_Color;
+							//if (FindObjectOfType<Awareness> ().WhoIdentity)
+								//ma.objPrefab.GetComponent<Image> ().color = tm.m_Setup.m_Color;
 						}
 					}
 
