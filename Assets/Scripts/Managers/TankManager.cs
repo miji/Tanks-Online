@@ -67,7 +67,11 @@ public class TankManager
 		// stop items
 		m_Item.DisableItems ();
 
+		try{
 		GameObject.Find("Minimap").GetComponent<MiniMapManager>().UpdateMinimap();
+		}
+		catch{
+		}
 
 		m_Movement.enabled = false;
         m_Shooting.enabled = false;
@@ -77,7 +81,11 @@ public class TankManager
     // Used during the phases of the game where the player should be able to control their tank.
     public void EnableControl()
     {
+		try{ 
 		GameObject.Find("Minimap").GetComponent<MiniMapManager>().UpdateMinimap();
+		}
+		catch{
+		}
 
 		m_Movement.enabled = true;
         m_Shooting.enabled = true;

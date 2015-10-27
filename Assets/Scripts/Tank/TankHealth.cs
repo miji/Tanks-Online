@@ -123,7 +123,10 @@ public class TankHealth : NetworkBehaviour
 
 	private void SetTankActive (bool active)
 	{
-		GameObject.Find ("Minimap").GetComponent<MiniMapManager> ().UpdateMinimap ();
+		try{
+			GameObject.Find ("Minimap").GetComponent<MiniMapManager> ().UpdateMinimap ();
+		}
+		catch{}
 
 		m_Collider.enabled = active;
 
