@@ -22,6 +22,9 @@ public class GameManager : NetworkBehaviour
 
 	public int timeBetweenItems = 30;
 	public Transform[] m_SpawnPoint;
+
+	public int Wins1, Wins2;
+
 	[HideInInspector]
 	[SyncVar]
 	public bool
@@ -36,9 +39,10 @@ public class GameManager : NetworkBehaviour
 	private int m_RoundNumber;                  // Which round the game is currently on.
 	private WaitForSeconds m_StartWait;         // Used to have a delay whilst the round starts.
 	private WaitForSeconds m_EndWait;           // Used to have a delay whilst the round or game ends.
-	private TankManager m_RoundWinner;          // Reference to the winner of the current round.  Used to make an announcement of who won.
-	private TankManager m_GameWinner;           // Reference to the winner of the game.  Used to make an announcement of who won.
-
+	//private TankManager m_RoundWinner;          // Reference to the winner of the current round.  Used to make an announcement of who won.
+	private int m_RoundWinnerTeam;
+	//private TankManager m_GameWinner;           // Reference to the winner of the game.  Used to make an announcement of who won.
+	private int m_GameWinnerTeam;
 
 
 	void Awake ()
@@ -52,6 +56,8 @@ public class GameManager : NetworkBehaviour
 	[ServerCallback]
 	private void Start ()
 	{
+		Wins1 = 0;
+		Wins2 = 0;
 		// Create the delays so they only have to be made once.
 		m_StartWait = new WaitForSeconds (m_StartDelay);
 		m_EndWait = new WaitForSeconds (m_EndDelay);
@@ -78,6 +84,10 @@ public class GameManager : NetworkBehaviour
 		tmp.m_PlayerColor = c;
 		tmp.m_PlayerName = name;
 		tmp.m_LocalPlayerID = localID;
+		if(playerNum % 2 == 0)
+			tmp.m_Team=1;
+		else
+			tmp.m_Team=2;
 		tmp.Setup ();
 
 		m_Tanks.Add (tmp);
@@ -116,7 +126,7 @@ public class GameManager : NetworkBehaviour
 		yield return StartCoroutine (RoundEnding ());
 
 		// This code is not run until 'RoundEnding' has finished.  At which point, check if there is a winner of the game.
-		if (m_GameWinner != null) {// If there is a game winner, wait for certain amount or all player confirmed to start a game again
+		if (m_GameWinnerTeam != 0) {// If there is a game winner, wait for certain amount or all player confirmed to start a game again
 			m_GameIsFinished = true;
 			float leftWaitTime = 15.0f;
 			bool allAreReady = false;
@@ -136,7 +146,7 @@ public class GameManager : NetworkBehaviour
 
 				if (newFlooredWaitTime != flooredWaitTime) {
 					flooredWaitTime = newFlooredWaitTime;
-					string message = EndMessage (flooredWaitTime);
+					string message = EndMessageTeam (flooredWaitTime);
 					RpcUpdateMessage (message);
 				}
 			}
@@ -212,7 +222,7 @@ public class GameManager : NetworkBehaviour
 		RpcRoundPlaying ();
 
 		// While there is not one tank left...
-		while (!OneTankLeft()) {
+		while (!OneTeamLeft()) {
 			// ... return on the next frame.
 			yield return null;
 		}
@@ -228,6 +238,7 @@ public class GameManager : NetworkBehaviour
 		m_MessageText.text = string.Empty;
 		TankMessage.ClearMessages ();
 		GameObject.FindObjectOfType<ScoreManager> ().CmdUpdateScore ();
+		GameObject.FindObjectOfType<GoalManager>().UpdateGoal();
 		if (FindObjectOfType<Awareness> ().WhatNextEvent)
 			FindObjectOfType<Timer> ().StartCountDown (timeBetweenItems);
 
@@ -241,19 +252,29 @@ public class GameManager : NetworkBehaviour
 
 
 		// Clear the winner from the previous round.
-		m_RoundWinner = null;
+		//m_RoundWinner = null;
+		m_RoundWinnerTeam = 0;
 
 		// See if there is a winner now the round is over.
-		m_RoundWinner = GetRoundWinner ();
+		//m_RoundWinner = GetRoundWinner ();
+
+		m_RoundWinnerTeam = GetRoundWinnerTeam ();
 
 		// If there is a winner, increment their score.
-		if (m_RoundWinner != null)
-			m_RoundWinner.m_Wins++;
+		//if (m_RoundWinner != null)
+			//m_RoundWinner.m_Wins++;
+
+		if (m_RoundWinnerTeam == 1)
+			Wins1++;
+		else if (m_RoundWinnerTeam == 2)
+			Wins2++;
 
 		// Now the winner's score has been incremented, see if someone has one the game.
-		m_GameWinner = GetGameWinner ();
+		//m_GameWinner = GetGameWinner ();
+		m_GameWinnerTeam = GetGameWinnerTeam ();
 
-		RpcUpdateMessage (EndMessage (0));
+		//RpcUpdateMessage (EndMessage (0));
+		RpcUpdateMessage (EndMessageTeam (0));
 
 		//notify client they should disable tank control
 		RpcRoundEnding ();
@@ -309,6 +330,26 @@ public class GameManager : NetworkBehaviour
 		return numTanksLeft <= 1;
 	}
 
+	private bool OneTeamLeft ()
+	{
+		// Start the count of tanks left at zero.
+		int numTanksLeft1 = 0;
+		int numTanksLeft2 = 0;
+		
+		// Go through all the tanks...
+		for (int i = 0; i < m_Tanks.Count; i++) {
+			// ... and if they are active, increment the counter.
+			if (m_Tanks [i].m_TankRenderers.activeSelf)
+				if(m_Tanks [i].m_Team==1)
+				numTanksLeft1++;
+			else if(m_Tanks [i].m_Team==2)
+				numTanksLeft2++;
+		}
+		
+		// If there are one or fewer tanks remaining return true, otherwise return false.
+		return numTanksLeft1 < 1 || numTanksLeft2 < 1;
+	}
+
 
 	// This function is to find out if there is a winner of the round.
 	// This function is called with the assumption that 1 or fewer tanks are currently active.
@@ -324,6 +365,22 @@ public class GameManager : NetworkBehaviour
 		// If none of the tanks are active it is a draw so return null.
 		return null;
 	}
+
+	private int GetRoundWinnerTeam ()
+	{
+		int TeamWinner = 0;
+
+		// Go through all the tanks...
+		for (int i = 0; i < m_Tanks.Count; i++) {
+			// ... and if one of them is active, it is the winner so return it.
+			if (m_Tanks [i].m_TankRenderers.activeSelf)
+				TeamWinner= m_Tanks[i].m_Team;
+		}
+		
+		// If none of the tanks are active it is a draw so return null.
+		return TeamWinner;
+	}
+
 
 
 	// This function is to find out if there is a winner of the game.
@@ -352,9 +409,31 @@ public class GameManager : NetworkBehaviour
 		return null;
 	}
 
+	private int GetGameWinnerTeam ()
+	{
+		if (Wins1 == m_NumRoundsToWin || Wins2 == m_NumRoundsToWin) {
+			if (Wins1 > Wins2){
+				return 1;
+			}
+			else if (Wins1 < Wins2){
+				return 2;
+			}
+			return 0;
+		} else
+			// crown
+
+		foreach(TankManager tm in m_Tanks) {
+			if(tm.m_Team==1) tm.SetLeader(Wins1 > Wins2);
+			else if(tm.m_Team==1) tm.SetLeader(Wins1 < Wins2);
+		}
+			return 0;
+	}
+
+
+
 
 	// Returns a string of each player's score in their tank's color.
-	private string EndMessage (int waitTime)
+	/*private string EndMessage (int waitTime)
 	{
 		// By default, there is no winner of the round so it's a draw.
 		string message = "DRAW!";
@@ -379,6 +458,50 @@ public class GameManager : NetworkBehaviour
 		if (m_GameWinner != null)
 			message += "\n\n<size=20 > Return to lobby in " + waitTime + "\nPress Fire to get ready</size>";
 
+		return message;
+	}*/
+
+	private string EndMessageTeam (int waitTime)
+	{
+		// By default, there is no winner of the round so it's a draw.
+		string message = "DRAW!";
+		
+		
+		// If there is a game winner set the message to say which player has won the game.
+		if (m_GameWinnerTeam != 0) {
+			Color color = Color.white;
+			if (m_GameWinnerTeam == 1)
+				color = Color.blue;
+			else if (m_GameWinnerTeam == 2)
+				color = Color.red;
+			message = "<color=#" + ColorUtility.ToHtmlStringRGB (color) + "> Team " + m_GameWinnerTeam + "</color> WINS THE GAME!";
+		}
+			// If there is a winner, change the message to display 'PLAYER #' in their color and a winning message.
+		else if (m_RoundWinnerTeam != 0) {
+			Color color=Color.white;
+			if(m_RoundWinnerTeam==1) color=Color.blue;
+			else if(m_RoundWinnerTeam==2) color=Color.red;
+			message = "<color=#" + ColorUtility.ToHtmlStringRGB (color) + "> Team " + m_RoundWinnerTeam + "</color> WINS THE ROUND!";
+		}
+		// After either the message of a draw or a winner, add some space before the leader board.
+		message += "\n\n";
+
+		message += "<color=#" + ColorUtility.ToHtmlStringRGB (Color.blue) + ">Team 1</color>: " + Wins1 + " WINS \n";
+		message += "<color=#" + ColorUtility.ToHtmlStringRGB (Color.red) + ">Team 2</color>: " + Wins2 + " WINS \n";
+
+		message += "\n\n";
+		
+		// Go through all the tanks and display their scores with their 'PLAYER #' in their color.
+		if (m_GameWinnerTeam != 0) {
+			for (int i = 0; i < m_Tanks.Count; i++) {
+				message += "<color=#" + ColorUtility.ToHtmlStringRGB (m_Tanks [i].m_PlayerColor) + ">" + m_Tanks [i].m_PlayerName + "</color>"  
+					+ (m_Tanks [i].IsReady () ? "<size=15> READY</size>" : "") + " \n";
+			}
+		}
+		
+		if (m_GameWinnerTeam != 0)
+			message += "\n\n<size=20 > Return to lobby in " + waitTime + "\nPress Fire to get ready</size>";
+		
 		return message;
 	}
 

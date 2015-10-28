@@ -45,7 +45,7 @@ public class TankHealth : NetworkBehaviour
 
 
 	// This is called whenever the tank takes damage.
-	public void Damage (float amount, string attacker)
+	public void Damage (float amount, string attacker, int team)
 	{
 		// if green
 		if (immortal)
@@ -54,7 +54,8 @@ public class TankHealth : NetworkBehaviour
 		// Reduce current health by the amount of damage done.
 
 		// Avoid suicide - My code
-		if (!attacker.Equals (m_Setup.m_PlayerName))
+		//if (!attacker.Equals (m_Setup.m_PlayerName))
+		if (team!=m_Setup.m_Team)
 			m_CurrentHealth -= amount;
 
 		// If the current health is at or below zero and it has not yet been registered, call OnZeroHealth.
@@ -117,6 +118,12 @@ public class TankHealth : NetworkBehaviour
 
 		// Create a gameobject that will play the tank explosion sound effect and then destroy itself.
 		AudioSource.PlayClipAtPoint (m_TankExplosion, transform.position);
+
+		/*
+		try{
+			GameObject.Find ("Minimap").GetComponent<MiniMapManager> ().UpdateMinimap ();
+		}
+		catch{}*/
 
 		InternalOnZeroHealth ();
 	}

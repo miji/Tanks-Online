@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\Items\PickUpItem.cs" />
      <Compile Include="Assets\Scripts\Items\RotateItem.cs" />
      <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\GoalManager.cs" />
      <Compile Include="Assets\Scripts\Managers\MiniMapManager.cs" />
      <Compile Include="Assets\Scripts\Managers\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\Managers\TankLobbyHook.cs" />

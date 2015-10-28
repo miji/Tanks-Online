@@ -31,6 +31,8 @@ public class TankManager
     public TankSetup m_Setup;
 	public TankItem m_Item;
 
+	public int m_Team;
+
     public void Setup()
     {
         // Get references to the components.
@@ -58,6 +60,7 @@ public class TankManager
         m_Setup.m_PlayerName = m_PlayerName;
         m_Setup.m_PlayerNumber = m_PlayerNumber;
         m_Setup.m_LocalID = m_LocalPlayerID;
+		m_Setup.m_Team = m_Team;
     }
 
 
@@ -67,11 +70,11 @@ public class TankManager
 		// stop items
 		m_Item.DisableItems ();
 
-		try{
+		/*try{
 		GameObject.Find("Minimap").GetComponent<MiniMapManager>().UpdateMinimap();
 		}
 		catch{
-		}
+		}*/
 
 		m_Movement.enabled = false;
         m_Shooting.enabled = false;
@@ -81,11 +84,11 @@ public class TankManager
     // Used during the phases of the game where the player should be able to control their tank.
     public void EnableControl()
     {
-		try{ 
+		/*try{ 
 		GameObject.Find("Minimap").GetComponent<MiniMapManager>().UpdateMinimap();
 		}
 		catch{
-		}
+		}*/
 
 		m_Movement.enabled = true;
         m_Shooting.enabled = true;

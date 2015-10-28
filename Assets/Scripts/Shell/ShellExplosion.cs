@@ -13,6 +13,7 @@ public class ShellExplosion : NetworkBehaviour
 
 	public bool strongShot=false;
 	public string attacker;
+	public int team;
 
 
     private int m_TankMask;                             // A layer mask so that only the tanks are affected by the explosion.
@@ -84,7 +85,7 @@ public class ShellExplosion : NetworkBehaviour
             damage = Mathf.Max(0f, damage);
 
             // Deal this damage to the tank.
-            targetHealth.Damage(damage,attacker);
+            targetHealth.Damage(damage,attacker,team);
         }
 
         // Destroy the shell on clients.

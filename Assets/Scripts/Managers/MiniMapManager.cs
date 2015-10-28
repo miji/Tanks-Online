@@ -7,9 +7,15 @@ public class MiniMapManager : MonoBehaviour
 
 
 	public MObject playerArrow;
-	public MObject enemyArrow;
+	public MObject team1Arrow;
+	public MObject team2Arrow;
 	public MObject playerCircle;
-	public MObject enemyCircle;
+	public MObject team1Circle;
+	public MObject team2Circle;
+
+	void FixedUpdate(){
+		UpdateMinimap ();
+	}
 
 	public void UpdateMinimap ()
 	{
@@ -36,10 +42,25 @@ public class MiniMapManager : MonoBehaviour
 						if (tm.m_Instance.GetComponent<MActor> () == null) {
 							// Add enemy arrow
 							MActor ma = tm.m_Instance.AddComponent<MActor> ();
-							if (FindObjectOfType<Awareness> ().WhereGaze)
-								ma.objPrefab = enemyArrow;
-							else
-								ma.objPrefab = enemyCircle;
+							if(tm.m_Team==1){
+								if (FindObjectOfType<Awareness> ().WhereGaze){
+									ma.objPrefab = team1Arrow;
+								}
+								else{
+									ma.objPrefab = team1Circle;
+								}
+							} else if(tm.m_Team==2){
+								if (FindObjectOfType<Awareness> ().WhereGaze){
+									ma.objPrefab = team2Arrow;
+								}
+								else{
+									ma.objPrefab = team2Circle;
+								}
+							}
+
+
+
+
 
 							//color
 							//if (FindObjectOfType<Awareness> ().WhoIdentity)

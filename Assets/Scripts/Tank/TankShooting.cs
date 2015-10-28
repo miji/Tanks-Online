@@ -128,6 +128,7 @@ public class TankShooting : NetworkBehaviour
 		if(strongShot) shellInstance.GetComponent<ShellExplosion> ().strongShot=true;
 
 		shellInstance.GetComponent<ShellExplosion> ().attacker = m_setup.m_PlayerName;
+		shellInstance.GetComponent<ShellExplosion> ().team = m_setup.m_Team;
 
         // Create a velocity that is the tank's velocity and the launch force in the fire position's forward direction.
 		Vector3 velocity;

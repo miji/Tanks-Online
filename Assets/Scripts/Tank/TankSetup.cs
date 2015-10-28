@@ -30,6 +30,9 @@ public class TankSetup : NetworkBehaviour
 	[SyncVar]
 	public bool
 		m_IsReady = false;
+	[SyncVar]
+	public int
+		m_Team = 0;
 
 	//This allow to know if the crown must be displayed or not
 	protected bool m_isLeader = false;
@@ -60,9 +63,18 @@ public class TankSetup : NetworkBehaviour
 		if (m_TankRenderers)
 			m_TankRenderers.SetActive (false);
 
+		Color color=Color.white;
+		if (FindObjectOfType<Awareness> ().WhatBelonging) {
+			if (m_Team == 1)
+				color = Color.blue;
+			else if (m_Team == 2)
+				color = Color.red;
+		}
+
+
 		// Present-Who-Identity
 		if (GameObject.FindObjectOfType<Awareness> ().WhoIdentity) 
-			m_NameText.text = "<color=#" + ColorUtility.ToHtmlStringRGB (m_Color) + ">" + m_PlayerName + "</color>";
+			m_NameText.text = "<color=#" + ColorUtility.ToHtmlStringRGB (color) + ">" + m_PlayerName + "</color>";
 		else
 			m_NameText.text = "";
 

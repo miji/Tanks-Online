@@ -23,6 +23,12 @@ public class Awareness : MonoBehaviour {
 	public bool WhatNextEvent;
 	public bool WhatNextAbilities;
 
+	[Header("Social & Group Dynamics")]
+	public bool WhoMembers;
+	public bool WhoOtherMembers;
+	public bool WhatBelonging;
+	public bool WhatGroupGoal;
+
 	void Awake() {
 		DontDestroyOnLoad(transform.gameObject);
 	}
@@ -32,7 +38,7 @@ public class Awareness : MonoBehaviour {
 		// Disable minimap
 		if(!WhereLocation && !WherePosition) GameObject.Find ("Minimap").gameObject.SetActive (false);
 
-		if(!WhatStatus) GameObject.Find ("ScoreText").gameObject.SetActive (false);
+		//if(!WhatStatus) GameObject.Find ("ScoreText").gameObject.SetActive (false);
 
 		if(!HowDevice) GameObject.Find ("Keys").gameObject.SetActive (false);
 
