@@ -44,6 +44,7 @@ public class ItemManager : NetworkBehaviour {
 		this.timeBetwenItems = timeBetweenItems;
 		spawning = true;
 		coroutine=StartCoroutine (SpawnItems ());
+		FindObjectOfType<Timer> ().RpcStartCountDown (timeBetweenItems);
 	}
 
 
@@ -69,7 +70,7 @@ public class ItemManager : NetworkBehaviour {
 		foreach (GameObject item in GameObject.FindGameObjectsWithTag("Green")) {
 			CmdDestroyItem(item);
 		}
-
+		FindObjectOfType<Timer> ().RpcStopCountDown ();
 	}
 
 

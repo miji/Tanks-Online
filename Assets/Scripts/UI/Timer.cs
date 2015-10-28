@@ -1,17 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class Timer : MonoBehaviour {
+public class Timer : NetworkBehaviour {
 
 	System.Timers.Timer timer;
 	int secondsToEnd;
 	Coroutine coroutine;
-	Text text;
+	public GameObject nextItemText;
 
-	private void Start(){
-		text = GetComponent<Text> ();
+
+
+	[ClientRpc]
+	public void RpcStartCountDown(int seconds){
+		secondsToEnd = seconds;
+		coroutine = StartCoroutine (_StartCountDown ());
 	}
+
 
 	public void StartCountDown(int seconds){
 		secondsToEnd = seconds;
@@ -21,7 +27,7 @@ public class Timer : MonoBehaviour {
 	IEnumerator _StartCountDown(){
 		while (true) {
 			for (int i=secondsToEnd; i>0; i--) {
-				text.text = "Next item in " + i + " seconds";
+				nextItemText.GetComponent<Text>().text = "Next item in " + i + " seconds";
 				yield return new WaitForSeconds (1);
 			}
 		}
@@ -29,7 +35,13 @@ public class Timer : MonoBehaviour {
 
 	public void StopCountDown(){
 		StopCoroutine (coroutine);
-		text.text = "";
+		nextItemText.GetComponent<Text>().text = "";
+	}
+
+	[ClientRpc]
+	public void RpcStopCountDown(){
+		StopCoroutine (coroutine);
+		nextItemText.GetComponent<Text>().text = "";
 	}
 
 }

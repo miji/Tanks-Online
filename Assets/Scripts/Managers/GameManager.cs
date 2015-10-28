@@ -22,9 +22,7 @@ public class GameManager : NetworkBehaviour
 
 	public int timeBetweenItems = 30;
 	public Transform[] m_SpawnPoint;
-
 	public int Wins1, Wins2;
-
 	[HideInInspector]
 	[SyncVar]
 	public bool
@@ -43,7 +41,6 @@ public class GameManager : NetworkBehaviour
 	private int m_RoundWinnerTeam;
 	//private TankManager m_GameWinner;           // Reference to the winner of the game.  Used to make an announcement of who won.
 	private int m_GameWinnerTeam;
-
 
 	void Awake ()
 	{
@@ -84,10 +81,10 @@ public class GameManager : NetworkBehaviour
 		tmp.m_PlayerColor = c;
 		tmp.m_PlayerName = name;
 		tmp.m_LocalPlayerID = localID;
-		if(playerNum % 2 == 0)
-			tmp.m_Team=1;
+		if (playerNum % 2 == 0)
+			tmp.m_Team = 1;
 		else
-			tmp.m_Team=2;
+			tmp.m_Team = 2;
 		tmp.Setup ();
 
 		m_Tanks.Add (tmp);
@@ -238,9 +235,9 @@ public class GameManager : NetworkBehaviour
 		m_MessageText.text = string.Empty;
 		TankMessage.ClearMessages ();
 		GameObject.FindObjectOfType<ScoreManager> ().CmdUpdateScore ();
-		GameObject.FindObjectOfType<GoalManager>().UpdateGoal();
-		if (FindObjectOfType<Awareness> ().WhatNextEvent)
-			FindObjectOfType<Timer> ().StartCountDown (timeBetweenItems);
+		GameObject.FindObjectOfType<GoalManager> ().UpdateGoal ();
+		//if (FindObjectOfType<Awareness> ().WhatNextEvent)
+			//FindObjectOfType<Timer> ().StartCountDown (timeBetweenItems)
 
 	}
 
@@ -262,7 +259,7 @@ public class GameManager : NetworkBehaviour
 
 		// If there is a winner, increment their score.
 		//if (m_RoundWinner != null)
-			//m_RoundWinner.m_Wins++;
+		//m_RoundWinner.m_Wins++;
 
 		if (m_RoundWinnerTeam == 1)
 			Wins1++;
@@ -289,8 +286,8 @@ public class GameManager : NetworkBehaviour
 		DisableTankControl ();
 
 		GameObject.FindObjectOfType<ScoreManager> ().CmdUpdateScore ();
-		if (FindObjectOfType<Awareness> ().WhatNextEvent)
-			FindObjectOfType<Timer> ().StopCountDown ();
+		//if (FindObjectOfType<Awareness> ().WhatNextEvent)
+			//FindObjectOfType<Timer> ().StopCountDown ();
 
 		StartCoroutine (ClientRoundEndingFade ());
 	}
@@ -340,9 +337,9 @@ public class GameManager : NetworkBehaviour
 		for (int i = 0; i < m_Tanks.Count; i++) {
 			// ... and if they are active, increment the counter.
 			if (m_Tanks [i].m_TankRenderers.activeSelf)
-				if(m_Tanks [i].m_Team==1)
+			if (m_Tanks [i].m_Team == 1)
 				numTanksLeft1++;
-			else if(m_Tanks [i].m_Team==2)
+			else if (m_Tanks [i].m_Team == 2)
 				numTanksLeft2++;
 		}
 		
@@ -374,7 +371,7 @@ public class GameManager : NetworkBehaviour
 		for (int i = 0; i < m_Tanks.Count; i++) {
 			// ... and if one of them is active, it is the winner so return it.
 			if (m_Tanks [i].m_TankRenderers.activeSelf)
-				TeamWinner= m_Tanks[i].m_Team;
+				TeamWinner = m_Tanks [i].m_Team;
 		}
 		
 		// If none of the tanks are active it is a draw so return null.
@@ -412,21 +409,22 @@ public class GameManager : NetworkBehaviour
 	private int GetGameWinnerTeam ()
 	{
 		if (Wins1 == m_NumRoundsToWin || Wins2 == m_NumRoundsToWin) {
-			if (Wins1 > Wins2){
+			if (Wins1 > Wins2) {
 				return 1;
-			}
-			else if (Wins1 < Wins2){
+			} else if (Wins1 < Wins2) {
 				return 2;
 			}
 			return 0;
 		} else
 			// crown
 
-		foreach(TankManager tm in m_Tanks) {
-			if(tm.m_Team==1) tm.SetLeader(Wins1 > Wins2);
-			else if(tm.m_Team==1) tm.SetLeader(Wins1 < Wins2);
-		}
-			return 0;
+			foreach (TankManager tm in m_Tanks) {
+				if (tm.m_Team == 1)
+					tm.SetLeader (Wins1 > Wins2);
+				else if (tm.m_Team == 1)
+					tm.SetLeader (Wins1 < Wins2);
+			}
+		return 0;
 	}
 
 
@@ -478,9 +476,11 @@ public class GameManager : NetworkBehaviour
 		}
 			// If there is a winner, change the message to display 'PLAYER #' in their color and a winning message.
 		else if (m_RoundWinnerTeam != 0) {
-			Color color=Color.white;
-			if(m_RoundWinnerTeam==1) color=Color.blue;
-			else if(m_RoundWinnerTeam==2) color=Color.red;
+			Color color = Color.white;
+			if (m_RoundWinnerTeam == 1)
+				color = Color.blue;
+			else if (m_RoundWinnerTeam == 2)
+				color = Color.red;
 			message = "<color=#" + ColorUtility.ToHtmlStringRGB (color) + "> Team " + m_RoundWinnerTeam + "</color> WINS THE ROUND!";
 		}
 		// After either the message of a draw or a winner, add some space before the leader board.
