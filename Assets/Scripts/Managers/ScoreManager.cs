@@ -33,6 +33,10 @@ public class ScoreManager : NetworkBehaviour {
 
 	[ClientRpc]
 	public void RpcUpdateScore(int score1, int score2, string players1, string players2){
+
+		if (!FindObjectOfType<Awareness> ().WhoMembers && !FindObjectOfType<Awareness> ().WhoOtherMembers && !FindObjectOfType<Awareness> ().WhatGroupGoal)
+			return;
+
 		string text = "<color=#"+ ColorUtility.ToHtmlStringRGB (Color.blue) + ">TEAM 1";
 		if(FindObjectOfType<Awareness>().WhatGroupGoal) text += ": " + score1;
 		text+="</color>\n";

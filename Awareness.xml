@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TanksOnline>
+  <!-- 
+  	WhoAuthorship requires WhatTask
+  	WhereGaze requires WhereLocation
+  -->  
+  <Present
+	WhoIdentity="true"
+  	WhoAuthorship="true" 
+  	WhatTask="true"
+  	WhatStatus="true"
+  	WhatAbilities="true"
+	WhereLocation="true"
+	WhereGaze="true"
+	WhereReach="true"
+	WherePosition="true"
+	HowDevice="true"
+  />
+  <!-- 
+  	WhatTaskHistory requires WhatTask
+	WhenEventHistory requires WhatTask
+  --> 
+  <Past
+  	WhatTaskHistory="true"
+  	WhenEventHistory="true"
+  />
+  <Future
+  	WhatNextEvent="true"
+	WhatNextAbilities="true"
+  />
+  <SocialGroupDynamics
+  	WhoMembers="true"
+	WhoOtherMembers="true"
+	WhatBelonging="true"
+	WhatGroupGoal="true"
+  />
+</TanksOnline>
