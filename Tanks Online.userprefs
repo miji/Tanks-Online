@@ -1,8 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UI/Awareness.cs">
     <Files>
-      <File FileName="Assets/Scripts/UI/Awareness.cs" Line="56" Column="20" />
+      <File FileName="Assets/Scripts/Shell/ShellExplosion.cs" Line="80" Column="14" />
+      <File FileName="Assets/Scripts/UI/Awareness.cs" Line="111" Column="49" />
+      <File FileName="Awareness.xml" Line="2" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
