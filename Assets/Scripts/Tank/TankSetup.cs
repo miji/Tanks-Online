@@ -63,7 +63,7 @@ public class TankSetup : NetworkBehaviour
 		if (m_TankRenderers)
 			m_TankRenderers.SetActive (false);
 
-		Color color=Color.white;
+		Color color = Color.white;
 		if (FindObjectOfType<Awareness> ().WhatBelonging) {
 			if (m_Team == 1)
 				color = Color.blue;
@@ -75,8 +75,16 @@ public class TankSetup : NetworkBehaviour
 		// Present-Who-Identity
 		if (GameObject.FindObjectOfType<Awareness> ().WhoIdentity) 
 			m_NameText.text = "<color=#" + ColorUtility.ToHtmlStringRGB (color) + ">" + m_PlayerName + "</color>";
-		else
-			m_NameText.text = "";
+		else {
+			if (GameObject.FindObjectOfType<Awareness> ().WhatBelonging) {
+				if (m_Team == 1)
+					m_NameText.text = "Team 1";
+				else if (m_Team == 2)
+					m_NameText.text = "Team 2";
+			} else {
+				m_NameText.text = "";
+			}
+		}
 
 		m_Crown.SetActive (false);
 
