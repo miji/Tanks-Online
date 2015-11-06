@@ -40,6 +40,9 @@ public class Awareness : MonoBehaviour
 	void Awake ()
 	{
 		DontDestroyOnLoad (transform.gameObject);
+		string[] args = System.Environment.GetCommandLineArgs();
+		if (args.Length > 1)
+			file = args [1];
 		Load (file);
 	}
 

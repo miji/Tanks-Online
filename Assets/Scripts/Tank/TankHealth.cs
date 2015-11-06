@@ -96,7 +96,7 @@ public class TankHealth : NetworkBehaviour
 			else
 				message = attacker + " destroyed " + m_Setup.m_PlayerName;
 		} else {
-			message = m_Setup.m_PlayerName + "was destroyed";
+			message = m_Setup.m_PlayerName + " was destroyed";
 		}
 
 		messages.CmdSendMessage (message);

@@ -31,32 +31,47 @@ public class TankItem : NetworkBehaviour {
 
 	public void ActivateHeart(){
 		healt.ResetHealth ();
-		messages.CmdSendMessage (setup.m_PlayerName + " got a heart");
 
+		if(FindObjectOfType<Awareness> ().WhoAuthorship)
+			messages.CmdSendMessage (setup.m_PlayerName + " got a heart");
+		else
+			messages.CmdSendMessage ("Somebody got a heart");
 	}
 
 	public void ActivateRed(){
 		
 		redCoroutine=StartCoroutine(StartRed());
-		messages.CmdSendMessage (setup.m_PlayerName + " got a red item");
+		if(FindObjectOfType<Awareness> ().WhoAuthorship)
+			messages.CmdSendMessage (setup.m_PlayerName + " got a red item");
+		else
+			messages.CmdSendMessage ("Somebody got a red item");
 	}
 
 	public void ActivateBlue(){
 
 		blueCoroutine=StartCoroutine(StartBlue());
-		messages.CmdSendMessage (setup.m_PlayerName + " got a blue item");
+		if(FindObjectOfType<Awareness> ().WhoAuthorship)
+			messages.CmdSendMessage (setup.m_PlayerName + " got a blue item");
+		else
+			messages.CmdSendMessage ("Somebody got a blue item");
 	}
 
 	public void ActivateYellow(){
 		
 		yellowCoroutine=StartCoroutine(StartYellow());
-		messages.CmdSendMessage (setup.m_PlayerName + " got a yellow item");
+		if(FindObjectOfType<Awareness> ().WhoAuthorship)
+			messages.CmdSendMessage (setup.m_PlayerName + " got a yellow item");
+		else
+			messages.CmdSendMessage ("Somebody got a yellow item");
 	}
 
 	public void ActivateGreen(){
 		
 		greenCoroutine=StartCoroutine(StartGreen());
-		messages.CmdSendMessage (setup.m_PlayerName + " got a green item");
+		if(FindObjectOfType<Awareness> ().WhoAuthorship)
+			messages.CmdSendMessage (setup.m_PlayerName + " got a green item");
+		else
+			messages.CmdSendMessage ("Somebody got a green item");
 	}
 	
 	IEnumerator StartRed ()
