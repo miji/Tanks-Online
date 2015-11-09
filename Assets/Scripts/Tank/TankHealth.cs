@@ -101,6 +101,8 @@ public class TankHealth : NetworkBehaviour
 
 		messages.CmdSendMessage (message);
 
+
+
 		RpcOnZeroHealth ();
 	}
 
@@ -157,7 +159,14 @@ public class TankHealth : NetworkBehaviour
 			m_Manager.DisableControl ();
 
 
+		if(!isLocal())
 			m_Setup.ActivateCrown (active);
+
+		// Camera 
+		
+		if(isLocal()) transform.FindChild ("Camera").gameObject.SetActive (active);
+		if(isLocal()) transform.FindChild ("NameCanvas").gameObject.SetActive (!active);
+
 
 	}
 

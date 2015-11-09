@@ -12,7 +12,7 @@ namespace UnityStandardAssets.Network
     //Any LobbyHook can then grab it and pass those value to the game player prefab (see the Pong Example in the Samples Scenes)
     public class LobbyPlayer : NetworkLobbyPlayer
     {
-        static Color[] Colors = new Color[] { Color.magenta, Color.red, Color.cyan, Color.blue, Color.green, Color.yellow, Color.gray, Color.black };
+		static Color[] Colors = new Color[] { Color.yellow, Color.blue, Color.red, Color.cyan, Color.magenta, Color.green, Color.gray, Color.black };
 
         //used on server to avoid assigning the same color to two player
         static List<int> _colorInUse = new List<int>();

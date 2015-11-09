@@ -239,6 +239,10 @@ public class GameManager : NetworkBehaviour
 		//if (FindObjectOfType<Awareness> ().WhatNextEvent)
 			//FindObjectOfType<Timer> ().StartCountDown (timeBetweenItems)
 
+		// FP Camera
+
+		//GetLocalPlayer ().m_Instance.transform.FindChild ("Camera").gameObject.SetActive (true);
+
 	}
 
 	private IEnumerator RoundEnding ()
