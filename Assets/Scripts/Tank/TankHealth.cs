@@ -156,10 +156,9 @@ public class TankHealth : NetworkBehaviour
 		else
 			m_Manager.DisableControl ();
 
-		if (FindObjectOfType<Awareness> ().WhatStatus)
+
 			m_Setup.ActivateCrown (active);
-		else
-			m_Setup.ActivateCrown (false);
+
 	}
 
 	// This function is called at the start of each round to make sure each tank is set up correctly.

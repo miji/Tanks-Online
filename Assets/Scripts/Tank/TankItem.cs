@@ -2,10 +2,10 @@
 using System.Collections;
 using UnityEngine.Networking;
 
-public class TankItem : NetworkBehaviour {
+public class TankItem : NetworkBehaviour
+{
 
-	public int ItemDuration=30;
-
+	public int ItemDuration = 30;
 	TankHealth healt;
 	TankMovement movement;
 	TankShooting shooting;
@@ -13,13 +13,13 @@ public class TankItem : NetworkBehaviour {
 	TankSetup setup;
 	TankMessage messages;
 	[SyncVar]
-	public bool red=false,yellow=false, blue=false, green=false;
-
+	public bool
+		red = false, yellow = false, blue = false, green = false;
 	Coroutine redCoroutine, blueCoroutine, yellowCoroutine, greenCoroutine;
-
 	float initialSpeed;
 
-	private void Awake(){
+	private void Awake ()
+	{
 		healt = gameObject.GetComponent<TankHealth> ();
 		movement = gameObject.GetComponent<TankMovement> ();
 		shooting = gameObject.GetComponent<TankShooting> ();
@@ -29,46 +29,51 @@ public class TankItem : NetworkBehaviour {
 		activeItems = transform.FindChild ("ActiveItems");
 	}
 
-	public void ActivateHeart(){
+	public void ActivateHeart ()
+	{
 		healt.ResetHealth ();
 
-		if(FindObjectOfType<Awareness> ().WhoAuthorship)
+		if (FindObjectOfType<Awareness> ().WhoAuthorship)
 			messages.CmdSendMessage (setup.m_PlayerName + " got a heart");
 		else
 			messages.CmdSendMessage ("Somebody got a heart");
 	}
 
-	public void ActivateRed(){
+	public void ActivateRed ()
+	{
 		
-		redCoroutine=StartCoroutine(StartRed());
-		if(FindObjectOfType<Awareness> ().WhoAuthorship)
+		redCoroutine = StartCoroutine (StartRed ());
+		if (FindObjectOfType<Awareness> ().WhoAuthorship)
 			messages.CmdSendMessage (setup.m_PlayerName + " got a red item");
 		else
 			messages.CmdSendMessage ("Somebody got a red item");
 	}
 
-	public void ActivateBlue(){
+	public void ActivateBlue ()
+	{
 
-		blueCoroutine=StartCoroutine(StartBlue());
-		if(FindObjectOfType<Awareness> ().WhoAuthorship)
+		blueCoroutine = StartCoroutine (StartBlue ());
+		if (FindObjectOfType<Awareness> ().WhoAuthorship)
 			messages.CmdSendMessage (setup.m_PlayerName + " got a blue item");
 		else
 			messages.CmdSendMessage ("Somebody got a blue item");
 	}
 
-	public void ActivateYellow(){
+	public void ActivateYellow ()
+	{
 		
-		yellowCoroutine=StartCoroutine(StartYellow());
-		if(FindObjectOfType<Awareness> ().WhoAuthorship)
+		yellowCoroutine = StartCoroutine (StartYellow ());
+		if (FindObjectOfType<Awareness> ().WhoAuthorship)
 			messages.CmdSendMessage (setup.m_PlayerName + " got a yellow item");
 		else
 			messages.CmdSendMessage ("Somebody got a yellow item");
 	}
 
-	public void ActivateGreen(){
+	public void ActivateGreen ()
+	{
 		
-		greenCoroutine=StartCoroutine(StartGreen());
-		if(FindObjectOfType<Awareness> ().WhoAuthorship)
+		greenCoroutine = StartCoroutine (StartGreen ());
+		if (FindObjectOfType<Awareness> ().WhoAuthorship)
 			messages.CmdSendMessage (setup.m_PlayerName + " got a green item");
 		else
 			messages.CmdSendMessage ("Somebody got a green item");
@@ -78,13 +83,16 @@ public class TankItem : NetworkBehaviour {
 	{
 
 		if (red) {
-			StopCoroutine(redCoroutine);
-			StopRed();
+			StopCoroutine (redCoroutine);
+			StopRed ();
 		}
 		CmdSetRed (true);
 		movement.m_Speed *= 1.5f;
 		yield return new WaitForSeconds (ItemDuration);
-		messages.CmdSendMessage (setup.m_PlayerName + " finished red item");
+		if (FindObjectOfType<Awareness> ().WhoAuthorship)
+			messages.CmdSendMessage (setup.m_PlayerName + " finished a red item");
+		else
+			messages.CmdSendMessage ("Somebody finished a red item");
 		StopRed ();
 	}
 
@@ -99,13 +107,16 @@ public class TankItem : NetworkBehaviour {
 	{
 
 		if (blue) {
-			StopCoroutine(blueCoroutine);
-			StopBlue();
+			StopCoroutine (blueCoroutine);
+			StopBlue ();
 		}
 		CmdSetBlue (true);
 		shooting.CmdSetStrong (true);
 		yield return new WaitForSeconds (ItemDuration);
-		messages.CmdSendMessage (setup.m_PlayerName + " finished blue item");
+		if (FindObjectOfType<Awareness> ().WhoAuthorship)
+			messages.CmdSendMessage (setup.m_PlayerName + " finished a blue item");
+		else
+			messages.CmdSendMessage ("Somebody finished a blue item");
 		StopBlue ();
 	}
 
@@ -120,13 +131,16 @@ public class TankItem : NetworkBehaviour {
 	{
 
 		if (yellow) {
-			StopCoroutine(yellowCoroutine);
-			StopYellow();
+			StopCoroutine (yellowCoroutine);
+			StopYellow ();
 		}
 		CmdSetYellow (true);
 		shooting.CmdSetLong (true);
 		yield return new WaitForSeconds (ItemDuration);
-		messages.CmdSendMessage (setup.m_PlayerName + " finished yellow item");
+		if (FindObjectOfType<Awareness> ().WhoAuthorship)
+			messages.CmdSendMessage (setup.m_PlayerName + " finished a yellow item");
+		else
+			messages.CmdSendMessage ("Somebody finished a yellow item");
 		StopYellow ();
 	}
 
@@ -141,13 +155,16 @@ public class TankItem : NetworkBehaviour {
 	{
 
 		if (green) {
-			StopCoroutine(greenCoroutine);
-			StopGreen();
+			StopCoroutine (greenCoroutine);
+			StopGreen ();
 		}
 		CmdSetGreen (true);
 		healt.CmdSetImmortal (true);
 		yield return new WaitForSeconds (ItemDuration);
-		messages.CmdSendMessage (setup.m_PlayerName + " finished green item");
+		if (FindObjectOfType<Awareness> ().WhoAuthorship)
+			messages.CmdSendMessage (setup.m_PlayerName + " finished a green item");
+		else
+			messages.CmdSendMessage ("Somebody finished a green item");
 		StopGreen ();
 	}
 
@@ -158,11 +175,16 @@ public class TankItem : NetworkBehaviour {
 
 	}
 
-	public void DisableItems(){
-		if (redCoroutine != null)  StopCoroutine (redCoroutine);
-		if (blueCoroutine != null)StopCoroutine (blueCoroutine);
-		if (yellowCoroutine != null)StopCoroutine (yellowCoroutine);
-		if (greenCoroutine != null)StopCoroutine (greenCoroutine);
+	public void DisableItems ()
+	{
+		if (redCoroutine != null)
+			StopCoroutine (redCoroutine);
+		if (blueCoroutine != null)
+			StopCoroutine (blueCoroutine);
+		if (yellowCoroutine != null)
+			StopCoroutine (yellowCoroutine);
+		if (greenCoroutine != null)
+			StopCoroutine (greenCoroutine);
 		StopRed ();
 		StopBlue ();
 		StopYellow ();
@@ -171,26 +193,31 @@ public class TankItem : NetworkBehaviour {
 	}
 
 	[Command]
-	void CmdSetRed(bool status){
+	void CmdSetRed (bool status)
+	{
 		red = status;
 	}
 
 	[Command]
-	void CmdSetBlue(bool status){
+	void CmdSetBlue (bool status)
+	{
 		blue = status;
 	}
 
 	[Command]
-	void CmdSetYellow(bool status){
+	void CmdSetYellow (bool status)
+	{
 		yellow = status;
 	}
 
 	[Command]
-	void CmdSetGreen(bool status){
+	void CmdSetGreen (bool status)
+	{
 		green = status;
 	}
 
-	private void Update(){
+	private void Update ()
+	{
 		if (FindObjectOfType<Awareness> ().WhatAbilities) {
 			activeItems.transform.FindChild ("RedItem").gameObject.SetActive (red);
 			activeItems.transform.FindChild ("BlueItem").gameObject.SetActive (blue);
@@ -200,9 +227,9 @@ public class TankItem : NetworkBehaviour {
 	}
 
 	[Command]
-	public void CmdDestroyItem(GameObject item)
+	public void CmdDestroyItem (GameObject item)
 	{
-		NetworkServer.Destroy(item);
+		NetworkServer.Destroy (item);
 	}
 
 

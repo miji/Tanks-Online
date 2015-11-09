@@ -126,7 +126,7 @@ public class TankSetup : NetworkBehaviour
 
 	public void ActivateCrown (bool active)
 	{//if we try to show (not hide) the crown, we only show it we are the current leader
-		m_Crown.SetActive (active ? m_isLeader : false);
+		if (FindObjectOfType<Awareness> ().WhatStatus) m_Crown.SetActive (active ? m_isLeader : false);
 		m_NameText.gameObject.SetActive (active);
 	}
 
