@@ -1,44 +1,6 @@
 Base path: /Applications/Unity/Unity.app/Contents
 Pipe name: \\.\pipe\UnityShaderCompiler-64bit-2-170573824
 Cmd: getPlatforms
-Cmd: compileSnippet
-  api=0 type=0 insize=982 outsize=11618 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF VERTEXLIGHT_ON _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=0 insize=938 outsize=6424 kw=POINT_COOKIE SHADOWS_OFF _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=0 insize=938 outsize=6448 kw=DIRECTIONAL SHADOWS_SCREEN _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=0 insize=938 outsize=7313 kw=POINT_COOKIE SHADOWS_CUBE _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=938 outsize=6 kw=POINT_COOKIE SHADOWS_OFF _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=938 outsize=6 kw=DIRECTIONAL_COOKIE SHADOWS_SCREEN _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=938 outsize=6 kw=SPOT SHADOWS_DEPTH SHADOWS_SOFT SHADOWS_NATIVE _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=0 insize=1152 outsize=5338 kw=LIGHTMAP_OFF DIRLIGHTMAP_SEPARATE DYNAMICLIGHTMAP_OFF _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=0 insize=1152 outsize=5329 kw=LIGHTMAP_OFF DIRLIGHTMAP_SEPARATE DYNAMICLIGHTMAP_OFF UNITY_HDR_ON _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=1152 outsize=6 kw=LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=1152 outsize=6 kw=LIGHTMAP_OFF DIRLIGHTMAP_COMBINED DYNAMICLIGHTMAP_ON _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=1152 outsize=6 kw=LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF UNITY_HDR_ON _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=1152 outsize=6 kw=LIGHTMAP_OFF DIRLIGHTMAP_COMBINED DYNAMICLIGHTMAP_ON UNITY_HDR_ON _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=0 insize=886 outsize=7021 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF VERTEXLIGHT_ON _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=886 outsize=6 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=0 insize=816 outsize=5091 kw=POINT_COOKIE SHADOWS_OFF _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=0 insize=816 outsize=5395 kw=DIRECTIONAL_COOKIE SHADOWS_SCREEN _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=816 outsize=6 kw=SPOT SHADOWS_OFF _ALPHAPREMULTIPLY_ON pd= ok=1
-Cmd: compileSnippet
-  api=0 type=1 insize=816 outsize=6 kw=SPOT SHADOWS_DEPTH SHADOWS_NATIVE _ALPHAPREMULTIPLY_ON pd= ok=1
 End of pipe
 
 Quitting shader compiler process
