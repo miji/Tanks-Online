@@ -162,6 +162,8 @@ public class TankHealth : NetworkBehaviour
 		if(!isLocal())
 			m_Setup.ActivateCrown (active);
 
+		gameObject.SetActive (active);
+
 		// Camera 
 		
 		if(isLocal()) transform.FindChild ("Camera").gameObject.SetActive (active);
