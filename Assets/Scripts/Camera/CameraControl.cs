@@ -96,7 +96,7 @@ public class CameraControl : MonoBehaviour
 			// If the target isn't active, go on to the next one.
 
 			if(!GameManager.m_Tanks [i].m_Instance.activeSelf)
-			//if (!GameManager.m_Tanks [i].m_Health<=0)
+			//if (GameManager.m_Tanks [i].m_Health.getCurrentHeath()<=0)
 				continue;
 
 			// Add to the average and increment the number of targets in the average.

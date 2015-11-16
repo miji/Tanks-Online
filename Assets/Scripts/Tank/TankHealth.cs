@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using System.Collections;
 
 public class TankHealth : NetworkBehaviour
 {
@@ -92,11 +93,11 @@ public class TankHealth : NetworkBehaviour
 		string message;
 		if (FindObjectOfType<Awareness> ().WhoAuthorship) {
 			if (attacker.Equals (m_Setup.m_PlayerName))
-				message = attacker + " destroyed itself";
+				message = GameManager.ColorPlayerStirng(attacker) + " destroyed itself";
 			else
-				message = attacker + " destroyed " + m_Setup.m_PlayerName;
+				message = GameManager.ColorPlayerStirng(attacker) + " destroyed " + GameManager.ColorPlayerStirng(m_Setup.m_PlayerName);
 		} else {
-			message = m_Setup.m_PlayerName + " was destroyed";
+			message = GameManager.ColorPlayerStirng(m_Setup.m_PlayerName) + " was destroyed";
 		}
 
 		messages.CmdSendMessage (message);
@@ -137,6 +138,9 @@ public class TankHealth : NetworkBehaviour
 		}
 		catch{}
 
+		//gameObject.GetComponent<Rigidbody> ().velocity = new Vector3 (0, 0, 0);
+		//gameObject.GetComponent<Rigidbody> ().angularVelocity = new Vector3 (0, 0, 0);
+
 		m_Collider.enabled = active;
 
 		m_TankRenderers.SetActive (active);
@@ -159,18 +163,41 @@ public class TankHealth : NetworkBehaviour
 			m_Manager.DisableControl ();
 
 
+
 		if(!isLocal())
 			m_Setup.ActivateCrown (active);
 
-		gameObject.SetActive (active);
-
 		// Camera 
 		
-		if(isLocal()) transform.FindChild ("Camera").gameObject.SetActive (active);
-		if(isLocal()) transform.FindChild ("NameCanvas").gameObject.SetActive (!active);
+		if (isLocal ()) {
+			if(!active)
+				GameObject.Find ("WaitPlayersText").GetComponent<Text>().text="Wait for the other players to finish the round";
+		} 
+
+		if(isLocal()) transform.FindChild ("NameCanvas").gameObject.SetActive (false);
+
+		if (active) {
+			gameObject.SetActive (true);
+			if(isLocal()) transform.FindChild ("Camera").gameObject.SetActive (true);
+		} 
+		else {
+			StartCoroutine (DelayedDeactivation ());
+		}
+
 
 
 	}
+
+	IEnumerator DelayedDeactivation() {
+		yield return new WaitForSeconds(1.05f);
+		// Camera 		
+		if(isLocal()) transform.FindChild ("Camera").gameObject.SetActive (false);
+		//if(isLocal()) transform.FindChild ("NameCanvas").gameObject.SetActive (!active);
+
+		gameObject.SetActive (false);
+	}
+
+
 
 	// This function is called at the start of each round to make sure each tank is set up correctly.
 	public void SetDefaults ()

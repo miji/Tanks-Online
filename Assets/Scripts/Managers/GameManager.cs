@@ -233,6 +233,7 @@ public class GameManager : NetworkBehaviour
 
 		// Clear the text from the screen.
 		m_MessageText.text = string.Empty;
+		GameObject.Find ("WaitPlayersText").GetComponent<Text>().text="";
 		TankMessage.ClearMessages ();
 		GameObject.FindObjectOfType<ScoreManager> ().CmdUpdateScore ();
 		GameObject.FindObjectOfType<GoalManager> ().UpdateGoal ();
@@ -288,7 +289,7 @@ public class GameManager : NetworkBehaviour
 	private void RpcRoundEnding ()
 	{
 		DisableTankControl ();
-
+		GameObject.Find ("WaitPlayersText").GetComponent<Text>().text="";
 		GameObject.FindObjectOfType<ScoreManager> ().CmdUpdateScore ();
 		//if (FindObjectOfType<Awareness> ().WhatNextEvent)
 			//FindObjectOfType<Timer> ().StopCountDown ();
@@ -542,7 +543,14 @@ public class GameManager : NetworkBehaviour
 		return null;
 	}
 
-
+	public static string ColorPlayerStirng(string player){
+		foreach (TankManager tm in m_Tanks) {
+			if(tm.m_Setup.m_PlayerName.Equals(player)){
+				return "<color=#"+ColorUtility.ToHtmlStringRGB (tm.m_Setup.m_Color)+">"+player+"</color>";
+			}
+		}
+		return player;
+	}
 
 
 }

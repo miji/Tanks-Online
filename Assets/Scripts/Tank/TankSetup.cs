@@ -76,6 +76,8 @@ public class TankSetup : NetworkBehaviour
 
 
 		// Present-Who-Identity
+
+
 		if (GameObject.FindObjectOfType<Awareness> ().WhoIdentity) 
 			m_NameText.text = "<color=#" + ColorUtility.ToHtmlStringRGB (color) + ">" + m_PlayerName + "</color>";
 		else {
@@ -88,6 +90,7 @@ public class TankSetup : NetworkBehaviour
 				m_NameText.text = "";
 			}
 		}
+		
 
 		m_Crown.SetActive (false);
 
@@ -130,7 +133,8 @@ public class TankSetup : NetworkBehaviour
 
 	public void ActivateCrown (bool active)
 	{//if we try to show (not hide) the crown, we only show it we are the current leader
-		if (FindObjectOfType<Awareness> ().WhatStatus) m_Crown.SetActive (active ? m_isLeader : false);
+		if (FindObjectOfType<Awareness> ().WhatStatus)
+			m_Crown.SetActive (active ? m_isLeader : false);
 		m_NameText.gameObject.SetActive (active);
 	}
 

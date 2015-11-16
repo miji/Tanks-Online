@@ -34,7 +34,7 @@ public class TankItem : NetworkBehaviour
 		healt.ResetHealth ();
 
 		if (FindObjectOfType<Awareness> ().WhoAuthorship)
-			messages.CmdSendMessage (setup.m_PlayerName + " got a heart");
+			messages.CmdSendMessage (GameManager.ColorPlayerStirng(setup.m_PlayerName) + " got a heart");
 		else
 			messages.CmdSendMessage ("Somebody got a heart");
 	}
@@ -44,9 +44,9 @@ public class TankItem : NetworkBehaviour
 		
 		redCoroutine = StartCoroutine (StartRed ());
 		if (FindObjectOfType<Awareness> ().WhoAuthorship)
-			messages.CmdSendMessage (setup.m_PlayerName + " got a red item");
+			messages.CmdSendMessage (GameManager.ColorPlayerStirng(setup.m_PlayerName) + " got a <color=#"+ColorUtility.ToHtmlStringRGB (Color.red)+">red</color> item");
 		else
-			messages.CmdSendMessage ("Somebody got a red item");
+			messages.CmdSendMessage ("Somebody got a <color=#"+ColorUtility.ToHtmlStringRGB (Color.red)+">red</color> item");
 	}
 
 	public void ActivateBlue ()
@@ -54,9 +54,9 @@ public class TankItem : NetworkBehaviour
 
 		blueCoroutine = StartCoroutine (StartBlue ());
 		if (FindObjectOfType<Awareness> ().WhoAuthorship)
-			messages.CmdSendMessage (setup.m_PlayerName + " got a blue item");
+			messages.CmdSendMessage (GameManager.ColorPlayerStirng(setup.m_PlayerName) + " got a <color=#"+ColorUtility.ToHtmlStringRGB (Color.blue)+">blue</color> item");
 		else
-			messages.CmdSendMessage ("Somebody got a blue item");
+			messages.CmdSendMessage ("Somebody got a <color=#"+ColorUtility.ToHtmlStringRGB (Color.blue)+">blue</color> item");
 	}
 
 	public void ActivateYellow ()
@@ -64,9 +64,9 @@ public class TankItem : NetworkBehaviour
 		
 		yellowCoroutine = StartCoroutine (StartYellow ());
 		if (FindObjectOfType<Awareness> ().WhoAuthorship)
-			messages.CmdSendMessage (setup.m_PlayerName + " got a yellow item");
+			messages.CmdSendMessage (GameManager.ColorPlayerStirng(setup.m_PlayerName) + " got a <color=#"+ColorUtility.ToHtmlStringRGB (Color.yellow)+">yellow</color> item");
 		else
-			messages.CmdSendMessage ("Somebody got a yellow item");
+			messages.CmdSendMessage ("Somebody got a <color=#"+ColorUtility.ToHtmlStringRGB (Color.yellow)+">yellow</color> item");
 	}
 
 	public void ActivateGreen ()
@@ -74,9 +74,9 @@ public class TankItem : NetworkBehaviour
 		
 		greenCoroutine = StartCoroutine (StartGreen ());
 		if (FindObjectOfType<Awareness> ().WhoAuthorship)
-			messages.CmdSendMessage (setup.m_PlayerName + " got a green item");
+			messages.CmdSendMessage (GameManager.ColorPlayerStirng(setup.m_PlayerName) + " got a <color=#"+ColorUtility.ToHtmlStringRGB (Color.green)+">green</color> item");
 		else
-			messages.CmdSendMessage ("Somebody got a green item");
+			messages.CmdSendMessage ("Somebody got a <color=#"+ColorUtility.ToHtmlStringRGB (Color.green)+">green</color> item");
 	}
 	
 	IEnumerator StartRed ()
@@ -90,9 +90,9 @@ public class TankItem : NetworkBehaviour
 		movement.m_Speed *= 1.5f;
 		yield return new WaitForSeconds (ItemDuration);
 		if (FindObjectOfType<Awareness> ().WhoAuthorship)
-			messages.CmdSendMessage (setup.m_PlayerName + " finished a red item");
+			messages.CmdSendMessage (setup.m_PlayerName + " finished a <color=#"+ColorUtility.ToHtmlStringRGB (Color.red)+">red</color> item");
 		else
-			messages.CmdSendMessage ("Somebody finished a red item");
+			messages.CmdSendMessage ("Somebody finished a <color=#"+ColorUtility.ToHtmlStringRGB (Color.red)+">red</color> item");
 		StopRed ();
 	}
 
@@ -114,9 +114,9 @@ public class TankItem : NetworkBehaviour
 		shooting.CmdSetStrong (true);
 		yield return new WaitForSeconds (ItemDuration);
 		if (FindObjectOfType<Awareness> ().WhoAuthorship)
-			messages.CmdSendMessage (setup.m_PlayerName + " finished a blue item");
+			messages.CmdSendMessage (GameManager.ColorPlayerStirng(setup.m_PlayerName) + " finished a <color=#"+ColorUtility.ToHtmlStringRGB (Color.blue)+">blue</color item");
 		else
-			messages.CmdSendMessage ("Somebody finished a blue item");
+			messages.CmdSendMessage ("Somebody finished a <color=#"+ColorUtility.ToHtmlStringRGB (Color.blue)+">blue</color item");
 		StopBlue ();
 	}
 
@@ -138,9 +138,9 @@ public class TankItem : NetworkBehaviour
 		shooting.CmdSetLong (true);
 		yield return new WaitForSeconds (ItemDuration);
 		if (FindObjectOfType<Awareness> ().WhoAuthorship)
-			messages.CmdSendMessage (setup.m_PlayerName + " finished a yellow item");
+			messages.CmdSendMessage (GameManager.ColorPlayerStirng(setup.m_PlayerName) + " finished a <color=#"+ColorUtility.ToHtmlStringRGB (Color.yellow)+">yellow</color item");
 		else
-			messages.CmdSendMessage ("Somebody finished a yellow item");
+			messages.CmdSendMessage ("Somebody finished a <color=#"+ColorUtility.ToHtmlStringRGB (Color.yellow)+">yellow</color item");
 		StopYellow ();
 	}
 
@@ -162,9 +162,9 @@ public class TankItem : NetworkBehaviour
 		healt.CmdSetImmortal (true);
 		yield return new WaitForSeconds (ItemDuration);
 		if (FindObjectOfType<Awareness> ().WhoAuthorship)
-			messages.CmdSendMessage (setup.m_PlayerName + " finished a green item");
+			messages.CmdSendMessage (GameManager.ColorPlayerStirng(setup.m_PlayerName) + " finished a <color=#"+ColorUtility.ToHtmlStringRGB (Color.green)+">green</color> item");
 		else
-			messages.CmdSendMessage ("Somebody finished a green item");
+			messages.CmdSendMessage ("Somebody finished a <color=#"+ColorUtility.ToHtmlStringRGB (Color.green)+">green</color> item");
 		StopGreen ();
 	}
 
