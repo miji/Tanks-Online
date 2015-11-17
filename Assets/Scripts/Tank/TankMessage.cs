@@ -10,6 +10,7 @@ public class TankMessage : NetworkBehaviour
 	public static void ClearMessages ()
 	{
 		GameObject.Find ("MessagesText").GetComponent<Text> ().text = "";
+		GameObject.Find ("NewMessageText").GetComponent<Text> ().text = "";
 	}
 
 	[Command]
@@ -26,6 +27,7 @@ public class TankMessage : NetworkBehaviour
 		string current = GameObject.Find ("MessagesText").GetComponent<Text> ().text;
 
 		if (FindObjectOfType<Awareness> ().WhatTask) {
+			StartCoroutine(SendNewMessage(message));
 			if (FindObjectOfType<Awareness> ().WhenEventHistory)
 				messageToShow = System.DateTime.Now.ToShortTimeString()+ " ";
 
@@ -37,6 +39,16 @@ public class TankMessage : NetworkBehaviour
 		}
 		GameObject.Find ("MessagesText").GetComponent<Text> ().text = messageToShow;
 
+	}
+
+	IEnumerator SendNewMessage(string newMessage){
+
+		Text newMessageText = GameObject.Find ("NewMessageText").GetComponent<Text> ();
+
+		newMessageText.canvasRenderer.SetAlpha (1.0f);
+		newMessageText.text = newMessage;
+		yield return new WaitForSeconds(1);
+		newMessageText.CrossFadeAlpha (0.0f, 2, false);
 	}
 
 }

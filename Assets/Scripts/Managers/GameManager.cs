@@ -290,6 +290,7 @@ public class GameManager : NetworkBehaviour
 	{
 		DisableTankControl ();
 		GameObject.Find ("WaitPlayersText").GetComponent<Text>().text="";
+		GameObject.Find ("NewMessageText").GetComponent<Text> ().text = "";
 		GameObject.FindObjectOfType<ScoreManager> ().CmdUpdateScore ();
 		//if (FindObjectOfType<Awareness> ().WhatNextEvent)
 			//FindObjectOfType<Timer> ().StopCountDown ();

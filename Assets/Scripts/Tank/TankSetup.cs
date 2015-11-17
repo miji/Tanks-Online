@@ -55,12 +55,12 @@ public class TankSetup : NetworkBehaviour
 
 			// Present-Who-Identity
 
-			renderers [i].material.color = m_Color;
+			// renderers [i].material.color = m_Color;
 
-			/*if (GameObject.FindObjectOfType<Awareness> ().WhoIdentity)
+			if (GameObject.FindObjectOfType<Awareness> ().WhoIdentity)
 				renderers [i].material.color = m_Color;
 			else
-				renderers [i].material.color = Color.green;*/
+				renderers [i].material.color = Color.green;
 		}
 
 		if (m_TankRenderers)

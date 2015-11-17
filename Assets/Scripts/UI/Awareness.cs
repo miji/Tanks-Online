@@ -9,6 +9,8 @@ public class Awareness : MonoBehaviour
 	public string file;
 	public Text errorText;
 	public string version;
+	public GameObject canvas;
+
 	[Header("Present")]
 	public bool
 		WhoIdentity;
@@ -40,6 +42,7 @@ public class Awareness : MonoBehaviour
 	void Awake ()
 	{
 		DontDestroyOnLoad (transform.gameObject);
+		DontDestroyOnLoad (canvas);
 		string[] args = System.Environment.GetCommandLineArgs();
 		if (args.Length > 1)
 			file = args [1];
@@ -111,9 +114,9 @@ public class Awareness : MonoBehaviour
 					}
 				}
 			}
-			errorText.text = "Version \"" + version + "\" loaded";
+			errorText.text = version;
 		} catch (System.IO.FileNotFoundException) {
-			errorText.text = "Awareness configuration file not found";
+			errorText.text = "";
 		}
 
 	}
