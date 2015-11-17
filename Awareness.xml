@@ -6,7 +6,7 @@
   -->  
   <Present
 	WhoIdentity="true"
-  	WhoAuthorship="false" 
+  	WhoAuthorship="true" 
   	WhatTask="true"
   	WhatStatus="true"
   	WhatAbilities="true"

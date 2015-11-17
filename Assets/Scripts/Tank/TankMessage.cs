@@ -19,6 +19,8 @@ public class TankMessage : NetworkBehaviour
 		RpcShowMessage (message);
 	}
 
+
+	Coroutine sendingNewMessage;
 	[ClientRpc]
 	public void RpcShowMessage (string message)
 	{
@@ -27,7 +29,8 @@ public class TankMessage : NetworkBehaviour
 		string current = GameObject.Find ("MessagesText").GetComponent<Text> ().text;
 
 		if (FindObjectOfType<Awareness> ().WhatTask) {
-			StartCoroutine(SendNewMessage(message));
+			if(sendingNewMessage!=null) StopCoroutine(sendingNewMessage);
+			sendingNewMessage=StartCoroutine(SendNewMessage(message));
 			if (FindObjectOfType<Awareness> ().WhenEventHistory)
 				messageToShow = System.DateTime.Now.ToShortTimeString()+ " ";
 
