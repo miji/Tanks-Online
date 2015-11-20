@@ -5,6 +5,7 @@
   	WhereGaze requires WhereLocation
   -->  
   <Present
+    WhoPresence="true"
 	WhoIdentity="true"
   	WhoAuthorship="true" 
   	WhatTask="true"
@@ -33,5 +34,7 @@
 	WhoOtherMembers="true"
 	WhatBelonging="true"
 	WhatGroupGoal="true"
+    HowInnerCommunication="true"
+    HowOuterCommunication="true"
   />
 </TanksOnline>

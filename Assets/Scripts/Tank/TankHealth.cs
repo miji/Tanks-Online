@@ -42,6 +42,7 @@ public class TankHealth : NetworkBehaviour
 	{
 		m_Collider = GetComponent<BoxCollider> ();
 		messages = GetComponent<TankMessage> ();
+
 	}
 
 

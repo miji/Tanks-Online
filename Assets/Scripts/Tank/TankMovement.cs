@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class TankMovement : NetworkBehaviour
 {
@@ -42,6 +43,10 @@ public class TankMovement : NetworkBehaviour
     {
         if (!isLocalPlayer)
             return;
+
+		// chat
+		if (GameObject.Find ("InputChat").GetComponent<InputField> ().isFocused)
+			return;
 
         // Store the value of both input axes.
         m_MovementInput = Input.GetAxis(m_MovementAxis);

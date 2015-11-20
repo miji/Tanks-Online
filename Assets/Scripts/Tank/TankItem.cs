@@ -18,6 +18,7 @@ public class TankItem : NetworkBehaviour
 	Coroutine redCoroutine, blueCoroutine, yellowCoroutine, greenCoroutine;
 	float initialSpeed;
 
+
 	private void Awake ()
 	{
 		healt = gameObject.GetComponent<TankHealth> ();
@@ -27,6 +28,7 @@ public class TankItem : NetworkBehaviour
 		messages = gameObject.GetComponent<TankMessage> ();
 		initialSpeed = movement.m_Speed;
 		activeItems = transform.FindChild ("ActiveItems");
+
 	}
 
 	public void ActivateHeart ()

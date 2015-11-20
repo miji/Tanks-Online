@@ -12,8 +12,8 @@ public class Awareness : MonoBehaviour
 	public GameObject canvas;
 
 	[Header("Present")]
-	public bool
-		WhoIdentity;
+	public bool WhoPresence;
+	public bool WhoIdentity;
 	public bool WhoAuthorship; //requires WhatTask
 	public bool WhatTask;
 	public bool WhatStatus; // health + crown + score
@@ -38,6 +38,8 @@ public class Awareness : MonoBehaviour
 	public bool WhoOtherMembers;
 	public bool WhatBelonging;
 	public bool WhatGroupGoal;
+	public bool HowInnerCommunication;
+	public bool HowOuterCommunication;
 
 	void Awake ()
 	{
@@ -80,6 +82,7 @@ public class Awareness : MonoBehaviour
 							if (reader.IsStartElement ()) {
 								switch (reader.Name) {
 								case "Present":
+									WhoPresence = String2Bool (reader ["WhoPresence"]);
 									WhoIdentity = String2Bool (reader ["WhoIdentity"]);
 									WhoAuthorship = String2Bool (reader ["WhoAuthorship"]);
 									WhatTask = String2Bool (reader ["WhatTask"]);
@@ -104,6 +107,8 @@ public class Awareness : MonoBehaviour
 									WhoOtherMembers = String2Bool (reader ["WhoOtherMembers"]);
 									WhatBelonging = String2Bool (reader ["WhatBelonging"]);
 									WhatGroupGoal = String2Bool (reader ["WhatGroupGoal"]);
+									HowInnerCommunication = String2Bool (reader ["HowInnerCommunication"]);
+									HowOuterCommunication = String2Bool (reader ["HowOuterCommunication"]);
 									break;
 								default:
 

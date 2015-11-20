@@ -10,6 +10,8 @@ public class ScoreManager : NetworkBehaviour {
 
 
 
+
+
 	[Command]
 	public void CmdUpdateScore(){
 
@@ -22,9 +24,11 @@ public class ScoreManager : NetworkBehaviour {
 		foreach (TankManager tm in GameManager.m_Tanks) {
 			if(tm.m_Team==1){
 				playersText1+="<color=#"+ ColorUtility.ToHtmlStringRGB (tm.m_Setup.m_Color) +">" +tm.m_PlayerName+ "</color>\n";
+
 			}
 			else if (tm.m_Team==2){
 				playersText2+="<color=#"+ ColorUtility.ToHtmlStringRGB (tm.m_Setup.m_Color) +">" +tm.m_PlayerName+ "</color>\n";
+
 			}
 		}
 

@@ -54,4 +54,17 @@ public class TankMessage : NetworkBehaviour
 		newMessageText.CrossFadeAlpha (0.0f, 2, false);
 	}
 
+	public void SendChatMessage(string message, int team){
+		CmdSendChatMessage (message, team);
+	}
+
+	[Command]
+	public void CmdSendChatMessage(string message, int team){
+		RpcShowChatMessage (message, team);
+	}
+
+	[ClientRpc]
+	public void RpcShowChatMessage(string message, int team){
+		GameObject.FindObjectOfType<ChatManager> ().ShowChatMessage (message, team);
+	}
 }

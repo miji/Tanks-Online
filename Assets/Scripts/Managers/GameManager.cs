@@ -41,6 +41,8 @@ public class GameManager : NetworkBehaviour
 	private int m_RoundWinnerTeam;
 	//private TankManager m_GameWinner;           // Reference to the winner of the game.  Used to make an announcement of who won.
 	private int m_GameWinnerTeam;
+	public Text vsText;
+
 
 	void Awake ()
 	{
@@ -210,10 +212,21 @@ public class GameManager : NetworkBehaviour
 
 	private IEnumerator RoundPlaying ()
 	{
+
+
 		// my code
 		itemManager.GetComponent<ItemManager> ().Enable (timeBetweenItems);
 
+		int n1 = 0, n2 = 0;
+		foreach (TankManager tm in m_Tanks) {
+			if (tm.m_Team == 1)
+				n1++;
+			else if (tm.m_Team == 2)
+				n2++;
 
+		}
+
+		vsText.text = "<color=#" + ColorUtility.ToHtmlStringRGB (Color.blue) + ">" + n1 + "</color> vs <color=#" + ColorUtility.ToHtmlStringRGB (Color.red) + ">" + n2 + "</color>";
 
 		//notify clients that the round is now started, they should allow player to move.
 		RpcRoundPlaying ();
@@ -233,12 +246,12 @@ public class GameManager : NetworkBehaviour
 
 		// Clear the text from the screen.
 		m_MessageText.text = string.Empty;
-		GameObject.Find ("WaitPlayersText").GetComponent<Text>().text="";
+		GameObject.Find ("WaitPlayersText").GetComponent<Text> ().text = "";
 		TankMessage.ClearMessages ();
 		GameObject.FindObjectOfType<ScoreManager> ().CmdUpdateScore ();
 		GameObject.FindObjectOfType<GoalManager> ().UpdateGoal ();
 		//if (FindObjectOfType<Awareness> ().WhatNextEvent)
-			//FindObjectOfType<Timer> ().StartCountDown (timeBetweenItems)
+		//FindObjectOfType<Timer> ().StartCountDown (timeBetweenItems)
 
 		// FP Camera
 
@@ -251,7 +264,7 @@ public class GameManager : NetworkBehaviour
 
 		// my code
 		itemManager.GetComponent<ItemManager> ().Disable ();
-
+		vsText.text = "";
 
 		// Clear the winner from the previous round.
 		//m_RoundWinner = null;
@@ -289,11 +302,11 @@ public class GameManager : NetworkBehaviour
 	private void RpcRoundEnding ()
 	{
 		DisableTankControl ();
-		GameObject.Find ("WaitPlayersText").GetComponent<Text>().text="";
+		GameObject.Find ("WaitPlayersText").GetComponent<Text> ().text = "";
 		GameObject.Find ("NewMessageText").GetComponent<Text> ().text = "";
 		GameObject.FindObjectOfType<ScoreManager> ().CmdUpdateScore ();
 		//if (FindObjectOfType<Awareness> ().WhatNextEvent)
-			//FindObjectOfType<Timer> ().StopCountDown ();
+		//FindObjectOfType<Timer> ().StopCountDown ();
 
 		StartCoroutine (ClientRoundEndingFade ());
 	}
@@ -544,10 +557,11 @@ public class GameManager : NetworkBehaviour
 		return null;
 	}
 
-	public static string ColorPlayerStirng(string player){
+	public static string ColorPlayerStirng (string player)
+	{
 		foreach (TankManager tm in m_Tanks) {
-			if(tm.m_Setup.m_PlayerName.Equals(player)){
-				return "<color=#"+ColorUtility.ToHtmlStringRGB (tm.m_Setup.m_Color)+">"+player+"</color>";
+			if (tm.m_Setup.m_PlayerName.Equals (player)) {
+				return "<color=#" + ColorUtility.ToHtmlStringRGB (tm.m_Setup.m_Color) + ">" + player + "</color>";
 			}
 		}
 		return player;
