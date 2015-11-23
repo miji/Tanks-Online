@@ -226,7 +226,7 @@ public class GameManager : NetworkBehaviour
 
 		}
 
-		vsText.text = "<color=#" + ColorUtility.ToHtmlStringRGB (Color.blue) + ">" + n1 + "</color> vs <color=#" + ColorUtility.ToHtmlStringRGB (Color.red) + ">" + n2 + "</color>";
+		if(FindObjectOfType<Awareness> ().WhoPresence) vsText.text = "<color=#" + ColorUtility.ToHtmlStringRGB (Color.blue) + ">" + n1 + "</color> vs <color=#" + ColorUtility.ToHtmlStringRGB (Color.red) + ">" + n2 + "</color>";
 
 		//notify clients that the round is now started, they should allow player to move.
 		RpcRoundPlaying ();
