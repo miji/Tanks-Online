@@ -217,16 +217,8 @@ public class GameManager : NetworkBehaviour
 		// my code
 		itemManager.GetComponent<ItemManager> ().Enable (timeBetweenItems);
 
-		int n1 = 0, n2 = 0;
-		foreach (TankManager tm in m_Tanks) {
-			if (tm.m_Team == 1)
-				n1++;
-			else if (tm.m_Team == 2)
-				n2++;
 
-		}
 
-		if(FindObjectOfType<Awareness> ().WhoPresence) vsText.text = "<color=#" + ColorUtility.ToHtmlStringRGB (Color.blue) + ">" + n1 + "</color> vs <color=#" + ColorUtility.ToHtmlStringRGB (Color.red) + ">" + n2 + "</color>";
 
 		//notify clients that the round is now started, they should allow player to move.
 		RpcRoundPlaying ();
@@ -238,9 +230,31 @@ public class GameManager : NetworkBehaviour
 		}
 	}
 
+	private void ShowVsMessage(){
+		int n1 = 0, n2 = 0;
+		foreach (TankManager tm in m_Tanks) {
+			if (tm.m_Team == 1)
+				n1++;
+			else if (tm.m_Team == 2)
+				n2++;
+			
+		}
+
+		vsText.text = "<color=#" + ColorUtility.ToHtmlStringRGB (Color.blue) + ">" + n1 + "</color> vs <color=#" + ColorUtility.ToHtmlStringRGB (Color.red) + ">" + n2 + "</color>";
+
+	}
+
+	private void HideVsMessage(){
+		vsText.text = "";
+	}
+
+
 	[ClientRpc]
 	void RpcRoundPlaying ()
 	{
+		if (FindObjectOfType<Awareness> ().WhoPresence)
+			ShowVsMessage ();
+
 		// As soon as the round begins playing let the players control the tanks.
 		EnableTankControl ();
 
@@ -264,7 +278,7 @@ public class GameManager : NetworkBehaviour
 
 		// my code
 		itemManager.GetComponent<ItemManager> ().Disable ();
-		vsText.text = "";
+
 
 		// Clear the winner from the previous round.
 		//m_RoundWinner = null;
@@ -301,6 +315,7 @@ public class GameManager : NetworkBehaviour
 	[ClientRpc]
 	private void RpcRoundEnding ()
 	{
+		HideVsMessage ();
 		DisableTankControl ();
 		GameObject.Find ("WaitPlayersText").GetComponent<Text> ().text = "";
 		GameObject.Find ("NewMessageText").GetComponent<Text> ().text = "";
