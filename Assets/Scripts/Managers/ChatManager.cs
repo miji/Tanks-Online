@@ -16,7 +16,7 @@ public class ChatManager : NetworkBehaviour {
 
 	void Start(){
 		chatMessages = new List<string> ();
-		if(FindObjectOfType<Awareness> ().HowInnerCommunication) ShowChatMessage("Use the chat to talk to your team members",0);
+		if(FindObjectOfType<Awareness> ().HowInnerCommunication) ShowChatMessage("Press c to chat to talk to your team members",0);
 		if(FindObjectOfType<Awareness> ().HowOuterCommunication) ShowChatMessage("Start the message with \"-\" to talk to everybody",0);
 	}
 
@@ -31,6 +31,9 @@ public class ChatManager : NetworkBehaviour {
 		localPlayer.m_Instance.GetComponent<TankMessage> ().SendChatMessage (message, gameManager.GetLocalPlayer().m_Team);
 
 		chatInput.text = "";
+
+		chatInput.DeactivateInputField ();
+
 	}
 
 
