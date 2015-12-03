@@ -57,24 +57,29 @@ public class ChatManager : NetworkBehaviour {
 		//tempList.Reverse ();
 		string [] messages = tempList.ToArray ();
 
-		int c=0;
+
+		if (messages.Length > messagesToShow) {
+
+			string [] temp=new string[messagesToShow];
+
+			for(int i=messages.Length-messagesToShow, j=0;i<messages.Length;i++,j++){
+				temp[j]=messages[i];
+			}
+
+			messages=temp;
+		}
+
 		string res="";
 
-		foreach (string message in messages) {
-			if(c<messagesToShow){
-				res+=message;
-				c++;
-				if(c!=messagesToShow || c==messages.Length){
-					res+="\n";
-				} else{
-					break;
-				}
+		for (int i=0; i<messages.Length; i++) {
+			res+=messages[i];
+			if(i!=messages.Length-1){
+				res+="\n";
 			}
 		}
 
+
 		return res;
-
-
 
 	}
 }
