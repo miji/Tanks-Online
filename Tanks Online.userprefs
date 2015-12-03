@@ -1,11 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Managers/GameManager.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Managers/ChatManager.cs">
     <Files>
+      <File FileName="Assets/Scripts/Tank/TankMovement.cs" Line="48" Column="10" />
       <File FileName="Assets/Scripts/Managers/GameManager.cs" Line="318" Column="20" />
-      <File FileName="Assets/Scripts/Managers/ChatManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Managers/ChatManager.cs" Line="22" Column="2" />
       <File FileName="Assets/Scripts/Tank/TankMessage.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Tank/TankMovement.cs" Line="47" Column="10" />
       <File FileName="Assets/Scripts/Managers/ScoreManager.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/UI/Awareness.cs" Line="1" Column="1" />
     </Files>
