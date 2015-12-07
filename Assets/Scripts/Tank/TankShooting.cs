@@ -65,6 +65,9 @@ public class TankShooting : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
+		if (GameObject.Find ("InputChat").GetComponent<UnityEngine.UI.InputField> ().isActiveAndEnabled)
+			return;
+
         // The slider should have a default value of the minimum launch force.
         m_AimSlider.value = m_MinLaunchForce;
 

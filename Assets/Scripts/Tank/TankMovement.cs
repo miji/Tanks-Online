@@ -21,6 +21,7 @@ public class TankMovement : NetworkBehaviour
     private float m_MovementInput;              // The current value of the movement input.
     private float m_TurnInput;                  // The current value of the turn input.
     private float m_OriginalPitch;              // The pitch of the audio source at the start of the scene.
+
 	private InputField chat;
 
     private void Awake()
@@ -45,27 +46,8 @@ public class TankMovement : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-		// chat
-
-		if (Input.GetKeyUp (KeyCode.C)) {
-			chat.enabled=true;
-			chat.Select();
-			chat.ActivateInputField();
-
-
-		}
-
-		if (Input.GetKeyUp (KeyCode.Return)) {
-
-			chat.DeactivateInputField();
-			chat.enabled=false;
-			
-		}
-
 		if (chat.isFocused)
 			return;
-
-
 
         // Store the value of both input axes.
         m_MovementInput = Input.GetAxis(m_MovementAxis);

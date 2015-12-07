@@ -14,6 +14,27 @@ public class ChatManager : NetworkBehaviour {
 
 	List<string> chatMessages;
 
+	void Update () {
+		
+		// chat
+		
+		if (Input.GetKeyUp (KeyCode.C)) {
+			chatInput.enabled=true;
+			chatInput.Select();
+			chatInput.ActivateInputField();
+			
+			
+		}
+		
+		if (Input.GetKeyUp (KeyCode.Return)) {
+			
+			chatInput.DeactivateInputField();
+			chatInput.enabled=false;
+			
+		}
+		
+	}
+
 	void Start(){
 		chatMessages = new List<string> ();
 		if(FindObjectOfType<Awareness> ().HowInnerCommunication) ShowChatMessage("Press c to chat to talk to your team members",0);
