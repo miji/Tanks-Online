@@ -48,11 +48,20 @@ public class TankMovement : NetworkBehaviour
 		// chat
 
 		if (Input.GetKeyUp (KeyCode.C)) {
+			chat.enabled=true;
 			chat.Select();
 			chat.ActivateInputField();
 
 
 		}
+
+		if (Input.GetKeyUp (KeyCode.Return)) {
+
+			chat.DeactivateInputField();
+			chat.enabled=false;
+			
+		}
+
 		if (chat.isFocused)
 			return;
 
