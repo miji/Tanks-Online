@@ -50,6 +50,8 @@ public class TankMovement : NetworkBehaviour
 		if (Input.GetKeyUp (KeyCode.C)) {
 			chat.Select();
 			chat.ActivateInputField();
+
+
 		}
 		if (chat.isFocused)
 			return;
@@ -98,8 +100,10 @@ public class TankMovement : NetworkBehaviour
             return;
 
         // Adjust the rigidbodies position and orientation in FixedUpdate.
-        Move();
-        Turn();
+		if (!chat.isFocused) {
+			Move ();
+			Turn ();
+		}
     }
 
 
