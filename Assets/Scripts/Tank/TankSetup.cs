@@ -33,6 +33,8 @@ public class TankSetup : NetworkBehaviour
 	[SyncVar]
 	public int
 		m_Team = 0;
+		[SyncVar]
+		public bool human=true;
 
 	//This allow to know if the crown must be displayed or not
 	protected bool m_isLeader = false;

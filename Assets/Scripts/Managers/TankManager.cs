@@ -30,6 +30,8 @@ public class TankManager
     public TankHealth m_Health;
     public TankSetup m_Setup;
 	public TankItem m_Item;
+	public TankAI m_AI;
+	public NavMeshAgent nav;
 
 	public int m_Team;
 
@@ -41,6 +43,8 @@ public class TankManager
         m_Health = m_Instance.GetComponent<TankHealth>();
         m_Setup = m_Instance.GetComponent<TankSetup>();
 		m_Item = m_Instance.GetComponent<TankItem>();
+		m_AI=m_Instance.GetComponent<TankAI>();
+		nav = m_Instance.GetComponent<NavMeshAgent> ();
 
         // Get references to the child objects.
         m_TankRenderers = m_Health.m_TankRenderers;
@@ -76,8 +80,16 @@ public class TankManager
 		catch{
 		}*/
 
-		m_Movement.enabled = false;
-        m_Shooting.enabled = false;
+		if (m_Setup.human) {
+			m_Movement.enabled = false;
+		} else {
+			//m_AI.DisableFire();
+			m_AI.enabled = false;
+			nav.enabled=false;
+
+		}
+		m_Shooting.enabled = false;
+        
     }
 
 
@@ -90,10 +102,17 @@ public class TankManager
 		catch{
 		}*/
 
-		m_Movement.enabled = true;
-        m_Shooting.enabled = true;
+		if (m_Setup.human) {
+			m_Movement.enabled = true;
 
-        m_Movement.ReEnableParticles();
+		} else {
+			m_AI.enabled = true;
+			nav.enabled=true;
+			//m_AI.EnableFire();
+		}
+		m_Shooting.enabled = true;
+		
+		m_Movement.ReEnableParticles();
     }
 
     public string GetName()
@@ -118,11 +137,11 @@ public class TankManager
         m_Shooting.SetDefaults();
         m_Health.SetDefaults();
 
-        if (m_Movement.hasAuthority)
-        {
+        //if (m_Movement.hasAuthority)
+        //{
             m_Movement.m_Rigidbody.position = m_SpawnPoint.position;
             m_Movement.m_Rigidbody.rotation = m_SpawnPoint.rotation;
-        }
+        //}
     }
 
 	public bool isLocal(){

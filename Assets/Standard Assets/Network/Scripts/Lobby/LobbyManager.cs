@@ -249,6 +249,7 @@ namespace UnityStandardAssets.Network
 
             LobbyPlayer newPlayer = obj.GetComponent<LobbyPlayer>();
             newPlayer.RpcToggleJoinButton(numPlayers + 1 >= minPlayer); ;
+			//newPlayer.RpcToggleJoinButton (true);
 
             for (int i = 0; i < numPlayers; ++i)
             {
@@ -257,6 +258,7 @@ namespace UnityStandardAssets.Network
                 if (p != null)
                 {
                     p.RpcToggleJoinButton(numPlayers + 1 >= minPlayer);
+					//p.RpcToggleJoinButton(true);
                 }
             }
 

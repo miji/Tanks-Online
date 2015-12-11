@@ -9,6 +9,8 @@ public class Awareness : MonoBehaviour
 	public string file;
 	public Text errorText;
 	public string version;
+	public int tanks;
+	public string difficulty;
 	public GameObject canvas;
 
 	[Header("Present")]
@@ -78,6 +80,8 @@ public class Awareness : MonoBehaviour
 				while (reader.Read()) {
 					if (reader.IsStartElement ()) {
 						version = reader ["Version"];
+						tanks = int.Parse(reader ["Tanks"]);
+						difficulty = reader ["Difficulty"];
 						while (reader.Read()) {
 							if (reader.IsStartElement ()) {
 								switch (reader.Name) {

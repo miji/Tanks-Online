@@ -19,6 +19,7 @@ public class GameManager : NetworkBehaviour
 	public CameraControl m_CameraControl;     // Reference to the CameraControl script for control during different phases.
 	public Text m_MessageText;                // Reference to the overlay Text to display winning text, etc.
 	public GameObject m_TankPrefab;           // Reference to the prefab the players will control.
+	public GameObject m_TankAI;
 
 	public int timeBetweenItems = 30;
 	public Transform[] m_SpawnPoint;
@@ -61,10 +62,52 @@ public class GameManager : NetworkBehaviour
 		m_StartWait = new WaitForSeconds (m_StartDelay);
 		m_EndWait = new WaitForSeconds (m_EndDelay);
 
+
+		AddAITanks ();
+
 		// Once the tanks have been created and the camera is using them as targets, start the game.
 		StartCoroutine (GameLoop ());
 	}
 
+	private void AddAITanks(){
+
+		int max = FindObjectOfType<Awareness> ().tanks;
+
+		if (m_Tanks.Count <= 1 && max >1) {
+			AddAITank(Color.red,"AI red");
+		}
+
+		if (m_Tanks.Count <= 2 && max >2) {
+			AddAITank(Color.cyan,"AI cyan");
+		}
+
+		if (m_Tanks.Count <= 3 && max>3) {
+			AddAITank(Color.magenta,"AI magenta");
+		}
+
+		if (m_Tanks.Count <= 4 && max >4) {
+			AddAITank(Color.green,"AI green");
+		}
+		
+		if (m_Tanks.Count <= 5 && max >5) {
+			AddAITank(Color.gray,"AI gray");
+		}
+		
+		if (m_Tanks.Count <= 6 && max >6) {
+			AddAITank(Color.yellow,"AI yellow");
+		}
+
+		if (m_Tanks.Count <= 7 && max >7) {
+			AddAITank(Color.black,"AI black");
+		}
+
+	}
+
+	private void AddAITank(Color color,string name){
+		GameObject ia=Instantiate(m_TankAI) as GameObject;	
+		AddTank (ia, m_Tanks.Count, color, name, -1);
+		NetworkServer.Spawn(ia);
+	}
 
 
 	/// <summary>
