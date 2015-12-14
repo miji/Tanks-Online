@@ -64,9 +64,20 @@ public class TankAI : NetworkBehaviour {
 
 		if (Vector3.Distance (transform.position, destination) < 10 && Time.time > nextFire) {
 			nextFire = Time.time + fireRate;
+			//transform.LookAt(destination);
+
+			Vector3 pos = destination-transform.position;
+			Quaternion newRot = Quaternion.LookRotation(pos);
+			transform.rotation = Quaternion.Lerp(transform.rotation, newRot, nav.angularSpeed * Time.deltaTime); 
+
 			shooting.Fire();
 
-		} 
+
+		}
+
+		//transform.LookAt (destination);
+
+
 
 	}
 
