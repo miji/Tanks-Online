@@ -8,7 +8,7 @@ public class PickUpItem : NetworkBehaviour {
 		if (other.gameObject.tag == "Tank") {
 			// Is a tank
 			TankHealth th = other.gameObject.GetComponent<TankHealth> ();
-			if (th.isLocal ()) {
+			if (th.isLocal () || th.playerControllerId==-1) {
 				// Is local player
 				TankItem ti = other.gameObject.GetComponent<TankItem> ();
 				if (gameObject.tag == "Heart") {

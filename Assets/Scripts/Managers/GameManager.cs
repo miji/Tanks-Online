@@ -63,51 +63,61 @@ public class GameManager : NetworkBehaviour
 		m_EndWait = new WaitForSeconds (m_EndDelay);
 
 
-		AddAITanks ();
+		
 
 		// Once the tanks have been created and the camera is using them as targets, start the game.
 		StartCoroutine (GameLoop ());
 	}
 
-	private void AddAITanks(){
+    bool AIloaded = false;
+	 private void AddAITanks(){
+
+        if (AIloaded) return;
 
 		int max = FindObjectOfType<Awareness> ().tanks;
+        int count = NetworkServer.connections.Count;
 
-		if (m_Tanks.Count <= 1 && max >1) {
+        
+
+        if (count < 2 && max >=2) {
 			AddAITank(Color.red,"AI red");
 		}
 
-		if (m_Tanks.Count <= 2 && max >2) {
+		if (count < 3 && max >=3) {
 			AddAITank(Color.cyan,"AI cyan");
 		}
 
-		if (m_Tanks.Count <= 3 && max>3) {
+		if (count < 4 && max>=4) {
 			AddAITank(Color.magenta,"AI magenta");
 		}
 
-		if (m_Tanks.Count <= 4 && max >4) {
+		if (count < 5 && max >=5) {
 			AddAITank(Color.green,"AI green");
 		}
 		
-		if (m_Tanks.Count <= 5 && max >5) {
+		if (count < 6 && max >=6) {
 			AddAITank(Color.gray,"AI gray");
 		}
 		
-		if (m_Tanks.Count <= 6 && max >6) {
+		if (count < 7 && max >=7) {
 			AddAITank(Color.yellow,"AI yellow");
 		}
 
-		if (m_Tanks.Count <= 7 && max >7) {
+		if (count < 8 && max >=8) {
 			AddAITank(Color.black,"AI black");
 		}
 
-	}
+        AIloaded = true;
+
+    }
 
 	private void AddAITank(Color color,string name){
 		GameObject ia=Instantiate(m_TankAI) as GameObject;	
 		AddTank (ia, m_Tanks.Count, color, name, -1);
 		NetworkServer.Spawn(ia);
 	}
+
+    
 
 
 	/// <summary>
@@ -152,11 +162,13 @@ public class GameManager : NetworkBehaviour
 	// This is called from start and will run each phase of the game one after another. ONLY ON SERVER (as Start is only called on server)
 	private IEnumerator GameLoop ()
 	{
-		while (m_Tanks.Count < 2)
-			yield return null;
+		//while (m_Tanks.Count < 2)
+		//	yield return null;
 
 		//wait to be sure that all are ready to start
 		yield return new WaitForSeconds (2.0f);
+
+        AddAITanks();
 
 		// Start off by running the 'RoundStarting' coroutine but don't return until it's finished.
 		yield return StartCoroutine (RoundStarting ());
@@ -203,10 +215,10 @@ public class GameManager : NetworkBehaviour
 
 	private IEnumerator RoundStarting ()
 	{
+        
 
-
-		//we notify all clients that the round is starting
-		RpcRoundStarting ();
+        //we notify all clients that the round is starting
+        RpcRoundStarting ();
 
 		// Wait for the specified length of time until yielding control back to the game loop.
 		yield return m_StartWait;
