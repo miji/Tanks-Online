@@ -168,7 +168,7 @@ public class GameManager : NetworkBehaviour
 		//wait to be sure that all are ready to start
 		yield return new WaitForSeconds (2.0f);
 
-        AddAITanks();
+        
 
 		// Start off by running the 'RoundStarting' coroutine but don't return until it's finished.
 		yield return StartCoroutine (RoundStarting ());
@@ -220,9 +220,14 @@ public class GameManager : NetworkBehaviour
         //we notify all clients that the round is starting
         RpcRoundStarting ();
 
-		// Wait for the specified length of time until yielding control back to the game loop.
-		yield return m_StartWait;
+        AddAITanks();
+
+
+        // Wait for the specified length of time until yielding control back to the game loop.
+        yield return m_StartWait;
 	}
+
+
 
 	[ClientRpc]
 	void RpcRoundStarting ()
@@ -272,11 +277,11 @@ public class GameManager : NetworkBehaviour
 		// my code
 		itemManager.GetComponent<ItemManager> ().Enable (timeBetweenItems);
 
+        
 
 
-
-		//notify clients that the round is now started, they should allow player to move.
-		RpcRoundPlaying ();
+        //notify clients that the round is now started, they should allow player to move.
+        RpcRoundPlaying ();
 
 		// While there is not one tank left...
 		while (!OneTeamLeft()) {

@@ -24,10 +24,12 @@ public class TankMovement : NetworkBehaviour
 
 	private InputField chat;
 
+
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
 		chat = GameObject.Find ("InputChat").GetComponent<InputField> ();
+
     }
 
 
@@ -87,9 +89,12 @@ public class TankMovement : NetworkBehaviour
 
     private void FixedUpdate()
     {
-       /* Vector3 tmp = m_Rigidbody.position;
-        tmp.y = 0;
-        m_Rigidbody.position = tmp;*/
+        if (isLocalPlayer)
+        {
+            Vector3 tmp = m_Rigidbody.position;
+            tmp.y = 0;
+            m_Rigidbody.position = tmp;
+        }
 
 
         if (!isLocalPlayer)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TanksOnline Version="Full" Tanks="8" Difficulty="Easy">
+<TanksOnline Version="Full" Tanks="8" Difficulty="Normal">
   <!-- 
   	WhoAuthorship requires WhatTask
   	WhereGaze requires WhereLocation
