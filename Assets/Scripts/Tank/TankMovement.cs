@@ -47,6 +47,11 @@ public class TankMovement : NetworkBehaviour
     {
         if (!isLocalPlayer)
             return;
+        else {
+            Vector3 temp = transform.position;
+            temp.y = 0;
+            transform.position = temp;
+        }
 
 		if (chat.isFocused)
 			return;

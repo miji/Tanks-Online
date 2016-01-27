@@ -191,8 +191,9 @@ public class TankHealth : NetworkBehaviour
 
 	IEnumerator DelayedDeactivation() {
 		yield return new WaitForSeconds(1.05f);
-		// Camera 		
-		if(isLocal()) transform.FindChild ("Camera").gameObject.SetActive (false);
+
+        // Camera 		
+        if (isLocal()) transform.FindChild ("Camera").gameObject.SetActive (false);
 		//if(isLocal()) transform.FindChild ("NameCanvas").gameObject.SetActive (!active);
 
 		gameObject.SetActive (false);
